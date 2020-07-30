@@ -1,0 +1,12 @@
+PROCEDURE MUSIC 
+
+//音楽ファイルの保管場所
+	filepath = "c:\github\grablu\music\"
+
+//音楽ファイルの指定
+	fileName = filepath + "sample.wav"
+
+//音楽ファイルの実行
+	SOUND(fileName, TRUE)
+
+FEND
