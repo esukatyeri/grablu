@@ -1,0 +1,15 @@
+PROCEDURE BEEP
+
+//SOUND( ファイル名,　[同期フラグ] )
+//引数
+//　ファイル名： 再生ファイル名　（WAV,　MID,　AVI等、　'BEEP' 指定にてBEEP音）
+//　　　　　　　 もしくはサウンドにて割り当てられたイベント名（'LowBatteryAlarm', 'MailBeep', 'SystemAsterisk'等）
+//　　　　　　　（ファイル名を省略すると再生をストップ）
+//　同期フラグ：
+//　　　FALSE： 待たない （デフォルト）
+//　　　TRUE：　終了を待つ
+
+
+	SOUND("BEEP",FALSE)
+
+FEND
