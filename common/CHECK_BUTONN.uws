@@ -1,4 +1,4 @@
-FUNCTION BUTTON(DATA[])
+FUNCTION CHECK_BUTONN(DATA[])
 //	引数一覧
 //		DATA[0]		Name 				何のボタンを押すかを入れる（文字列、ex. "OK"）
 //		DATA[1]		Imagepath		  	画像のフルパス
@@ -25,6 +25,7 @@ FUNCTION BUTTON(DATA[])
 			//フリーズ時の処理
 			IFB COUNT > DATA[9]
 				RESULT = 99
+				shutdown_chkimgx()
 				PRINT "ボタンが見つかりません。処理を中断します。"
 				EXIT
 			ENDIF
@@ -35,47 +36,5 @@ FUNCTION BUTTON(DATA[])
 		COUNT = 0 
 		PRINT DATA[0] +"ボタンの存在を確認"
 
-	//画像を箇所を設定
-		x= G_IMGX_X + RANDOM(DATA[2])
-		y= G_IMGX_Y + RANDOM(DATA[3])		
-
-	//どこをクリックするかログに出力してからクリック
-		PRINT "基点:x="+ G_IMGX_X +",y="+ G_IMGX_Y
-		PRINT "x="+ x  +",y="+ y
-		BTN(LEFT,CLICK,x,y)
-		shutdown_chkimgx()
-		
-	//画面が遷移するのを待つ
-		IFB DATA[12] = 1
-			SLEEP(1)
-			startup_chkimgx()
-			WHILE (CHKIMGX(DATA[1],0,DATA[4],DATA[5],DATA[6],DATA[7],DATA[8],10,-1)=TRUE)
-				SLEEP(0.5)
-				PRINT COUNT + "週目"
-				IFB COUNT > 3
-					x= G_IMGX_X + RANDOM(DATA[2])
-					y= G_IMGX_Y + RANDOM(DATA[3])
-					BTN(LEFT,CLICK,x,y)
-				ENDIF
-				
-				IFB COUNT > 10
-					RESULT = 99
-					PRINT "画面が遷移しません。処理を中断します。"
-					EXIT
-				ENDIF
-				shutdown_chkimgx()
-				startup_chkimgx()
-				COUNT = COUNT + 1
-			WEND
-		ENDIF
-
-		PRINT DATA[0] +"ボタンの処理完了"
-
-	//sleep処理		
-		s_time = DATA[10] + RANDOM((DATA[11]-DATA[10])*10)/10
-		SLEEP(s_time)
-		SLEEP(0.5)
-		RESULT = 0
-		
 		shutdown_chkimgx()
 FEND
