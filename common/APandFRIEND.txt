@@ -1,0 +1,56 @@
+FUNCTION APandFRIEND(USE[],FRIEND[],OK1[],OK2[])
+
+//		USE[]	useのデータ
+//		FRIEND[]	friendのデータ
+//		OK[]	OKのデータ
+		COUNT=0
+		Checker = 0
+		startup_chkimgx()
+		WHILE (CHKIMGX(USE[1],0,USE[4],USE[5],USE[6],USE[7],USE[8],10,-1)=FALSE)
+			SLEEP(0.1)
+			shutdown_chkimgx()
+			startup_chkimgx()
+		//フレンド選択画面が出ていたらブレイク
+			IFB (CHKIMGX(FRIEND[1],0,FRIEND[4],FRIEND[5],FRIEND[6],FRIEND[7],FRIEND[8],10,-1)=TRUE)
+				Checker = 1
+				BREAK
+			ENDIF
+		//3秒待ってもAP不足の画面が出てこなければブレイク
+			IFB COUNT > 30
+				Checker = 1
+				BREAK
+			ENDIF
+			shutdown_chkimgx()
+			startup_chkimgx()
+			COUNT = COUNT + 1
+		WEND
+		
+		COUNT = 0
+		PRINT Checker
+		shutdown_chkimgx()
+	//エリクシールハーフ　を探してクリックする
+		IFB Checker = 0
+			RC = BUTTON(USE)
+			RC = BUTTON(OK2)
+		ENDIF
+
+	//フレンド石を選択する
+	COUNT=0
+		WHILE TRUE
+			RC = BUTTON(FRIEND)
+			startup_chkimgx()
+			IFB (CHKIMGX(OK1[1],0,OK1[4],OK1[5],OK1[6],OK1[7],OK1[8],10,-1)=TRUE)
+				shutdown_chkimgx()
+				RC = BUTTON(OK1)
+				BREAK
+			ENDIF
+			IFB COUNT > 15
+				BREAK
+			ENDIF
+			
+			shutdown_chkimgx()
+			COUNT = COUNT + 1
+		WEND
+		RESULT = RC
+		shutdown_chkimgx()
+FEND
