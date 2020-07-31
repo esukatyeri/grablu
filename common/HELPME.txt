@@ -1,0 +1,17 @@
+FUNCTION HELPME_SET(KYUEN[],CALL[],OK[])
+//	KYUEN[]		救援ボタンのデータ配列
+//	CALL[]		救援依頼ボタンのデータ配列
+//	OK[]		OKボタンのデータ配列
+
+RC=99
+
+	WHILE RC=99
+		BTN(WHEEL, -10)
+		RC=BUTTON(KYUEN)
+		RC=BUTTON(CALL)
+		RC=BUTTON(OK)
+	WEND
+
+	RESULT = 99
+
+FEND

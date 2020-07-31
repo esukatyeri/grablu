@@ -1,0 +1,47 @@
+FUNCTION FRIENDandAP(USE[],FRIEND[],OK1[],OK2[])
+
+//		USE[]	useのデータ
+//		FRIEND[]	friendのデータ
+//		OK[]	OKのデータ
+		COUNT=0
+
+	//フレンド石を選択する
+
+		RC = BUTTON(FRIEND)
+
+
+			startup_chkimgx()
+			
+			//AP不足のチェック
+			WHILE (CHKIMGX(USE[1],0,USE[4],USE[5],USE[6],USE[7],USE[8],10,-1)=FALSE)			
+				SLEEP(0.1)
+				shutdown_chkimgx()
+				startup_chkimgx()
+			//OKボタンが出ていたら関数終了
+				IFB (CHKIMGX(OK1[1],0,OK1[4],OK1[5],OK1[6],OK1[7],OK1[8],10,-1)=TRUE)
+					shutdown_chkimgx()
+					RC = BUTTON(OK1)
+					RESULT = RC
+					exit
+				ENDIF
+			//3秒待ってもAP不足の画面が出てこなければブレイク
+				IFB COUNT > 30
+					Checker = 1
+					BREAK
+				ENDIF
+				shutdown_chkimgx()
+				startup_chkimgx()
+				COUNT = COUNT + 1
+			WEND
+			
+			
+			
+			shutdown_chkimgx()
+			COUNT = COUNT + 1
+		
+		RC = BUTTON(USE)
+		RC = BUTTON(OK2)
+		RC = BUTTON(OK1)
+		RESULT = RC
+		shutdown_chkimgx()
+FEND
