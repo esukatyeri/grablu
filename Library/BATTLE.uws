@@ -1,14 +1,45 @@
 FUNCTION BATTLE(FULL[],STIME)
 //戦闘画面用の関数
+//引数の説明
+//FULL[]：AUTO（FULL）のボタンの設定値
+//STIME ：戦闘にかかる時間、SLEEPの時間
+
+
+//救援の処理（未実装）
 
 
 
-	RC = BUTTON(FULL)
-	IFB RC = 0
-		SLEEP(STIME)
-	ELSE
+//AUTO（FULL）の処理
+
+	COUNT = 0
+
+	while ( RC = 99 )		//正常終了するか、5回失敗したときのみ抜ける
+		
+		RC = BUTTON(FULL)
+		IFB RC = 0
+			SLEEP(STIME)		//FULLを押せたときのみSLEEPを実行
+			BREAK
+		ENDIF
+		
+	//FULLボタンがなかった場合の処理
 		BEEP
-	ENDIF
+		IFB COUNT = 1
+			SCREENSHOT
+		ENDIF
+
+	//3回失敗したときは更新ボタンをクリックする（未実装）
+
+		COUNT = COUNT + 1
+
+		IFB COUNT = 5
+			BREAK
+		ENDIF
+
+
+
+	WEND
+		SCREENSHOT
+		EMAIL("戦闘画面に遷移していません"）
 	
 	RESULT = RC
 FEND
