@@ -1,0 +1,44 @@
+PROCEDURE MAIL(SUBJECT, BODY, TEMP_FILE)
+		mailfrom = "〇〇〇"　// 送信元
+		mailto   = "esukatyeri@gmail.com"　// 送信先
+		subject  = SUBJECT// メールタイトル
+		body     = BODY// メール本文
+		tempfile = TEMP_FILE
+		
+		authflag = true// SMTP認証使用の有無 Trueが使用 Falseが不使用
+		authid   = "〇〇〇"// 送信元
+		authps   = "〇〇〇"// gmailのパスワード
+		sslflag  = true// 暗号化された接続(SSL)使用の有無 Trueが使用 Falseが不使用
+		 
+		smtpserver     = "smtp.gmail.com" // 例)smtp.gmail.com
+		smtpserverport = 465 // サーバーのポート番号　例はGmailのもの
+		 
+		Dim objEmail   = CreateOleObj("CDO.Message")
+		 
+		objEmail.From     = mailfrom
+		objEmail.To       = mailto
+		objEmail.Subject  = subject
+		objEmail.Textbody = body
+		objEmail.AddAttachment (tempfile)
+		
+		schemas = "http://schemas.microsoft.com/cdo/configuration/"
+		objEmail.Configuration.Fields.Item(schemas + "sendusing") = 2
+		objEmail.Configuration.Fields.Item(schemas + "smtpserver") = smtpserver
+		objEmail.Configuration.Fields.Item(schemas + "smtpserverport") = smtpserverport
+		 
+		//SMTP認証を利用する場合
+		ifb authflag
+		    objEmail.Configuration.Fields.Item(schemas + "smtpauthenticate") = true
+		    objEmail.Configuration.Fields.Item(schemas + "sendusername") = authid
+		    objEmail.Configuration.Fields.Item(schemas + "sendpassword") = authps
+		endif
+		 
+		//暗号化された接続(SSL)を利用する場合
+		if sslflag then objEmail.Configuration.Fields.Item(schemas + "smtpusessl") = true
+		 
+		objEmail.Configuration.Fields.Update
+		COM_ERR_IGN
+		objEmail.Send
+		COM_ERR_RET
+
+FEND

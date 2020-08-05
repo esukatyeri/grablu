@@ -1,10 +1,14 @@
-PROCEDURE SCREENSHOT
+FUNCTION SCREENSHOT
 	GETTIME()
-	filename_act = "C:\github\grablu\errorlog\" + G_TIME_YY4 + G_TIME_MM2 +  G_TIME_DD2 + G_TIME_HH2 + G_TIME_NN2
-	filename_all = "C:\github\grablu\errorlog\" +G_TIME_YY4 + G_TIME_MM2 +  G_TIME_DD2 + G_TIME_HH2 + G_TIME_NN2
+	
+	filename_act = "C:\github\grablu\errorlog\" + G_TIME_YY4 + G_TIME_MM2 +  G_TIME_DD2 + G_TIME_HH2 + G_TIME_NN2 + "ACT"
+	filename_all = "C:\github\grablu\errorlog\" + G_TIME_YY4 + G_TIME_MM2 +  G_TIME_DD2 + G_TIME_HH2 + G_TIME_NN2 + "ALL"
 
 	id = GETID(GET_ACTIVE_WIN)
 	SAVEIMG(failname_act, id)
 	SAVEIMG(failname_all, 0)
+	
+	RESULT = filename_act + ".BMP"
+	
 FEND
 
