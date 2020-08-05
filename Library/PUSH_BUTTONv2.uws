@@ -1,0 +1,90 @@
+FUNCTION PUSH_BUTTON(DATA[])
+//	引数一覧
+//		DATA[0]		Name 				何のボタンを押すかを入れる（文字列、ex. "OK"）
+//		DATA[1]		Imagepath		  	画像のフルパス
+//		DATA[2]		x1  				画像の起点から右端までの幅（ピクセル）
+//		DATA[3]		y1  				画像の起点から下端までの幅（ピクセル）
+//		DATA[4]		x2  				画像の検索範囲＿始点
+//		DATA[5]		y2					画像の検索範囲＿始点
+//		DATA[6]		x3  				画像の検索範囲＿終点
+//		DATA[7]		y3					画像の検索範囲＿終点
+//		DATA[8]		num					何番目の画像か指定
+//		DATA[9]		loop_count			画像が出てくるまでの待機回数（×0.1s）
+//		DATA[10]	sleep_min			sleepの最低時間
+//		DATA[11]	sleep_max  			sleepの最大時間
+//		DATA[12]	check_flg			ボタンクリック後のチェック機能ON/OFF
+
+
+	COUNT=1
+	flg = 0
+
+	
+	//ボタンが出てくるまで待機
+		PRINT DATA[0] +"ボタンを処理開始"
+
+	WHILE TRUE
+		startup_chkimgx()
+		IFB (CHKIMGX(DATA[1],0,DATA[4],DATA[5],DATA[6],DATA[7],DATA[8],10,-1)=FALSE)
+		//ボタンが見つからない場合の処理
+			IFB flg = 1
+			//①クリック済みなので正常終了
+					s_time = DATA[10] + RANDOM((DATA[11]-DATA[10])*10)/10
+					SLEEP(s_time)
+					SLEEP(0.5)
+					PRINT DATA[0] +"ボタンの処理完了"
+					shutdown_chkimgx()
+					RESULT = 0
+					EXIT
+
+			ELSE
+			//②クリック前なので、一定回数までは定期する。一定回数以上はエラー終了
+				SLEEP(0.1)
+				IFB COUNT > DATA[9]
+					PRINT "ボタンが見つかりません。処理を中断します。"
+					shutdown_chkimgx()
+					RESULT = 99
+					EXIT
+				ENDIF
+				COUNT = COUNT + 1
+			ENDIF
+			
+		ELSE
+		//ボタンを見つけた場合の処理
+			IFB flg = 1
+			//③ボタンをクリックしていた場合の処理
+				SLEEP(0.5)
+				PRINT "ボタンクリック後の確認" + COUNT + "週目"
+				IFB COUNT > 3
+					x= G_IMGX_X + RANDOM(DATA[2])
+					y= G_IMGX_Y + RANDOM(DATA[3])
+					BTN(LEFT,CLICK,x,y)
+				ENDIF
+
+				IFB COUNT > 10
+					RESULT = 99
+					PRINT "画面が遷移しません。処理を中断します。"
+					RESULT = 99
+					EXIT
+				ENDIF
+
+				COUNT = COUNT + 1
+
+			ELSE
+			//④ボタンをクリックしていない場合の処理
+				COUNT = 0      //初回クリック時はループカウントをリセットする
+				flg = 1        //flgを変更し、フローを変更する。
+				PRINT DATA[0] +"ボタンの存在を確認"
+
+			//画像を箇所を設定
+				x= G_IMGX_X + RANDOM(DATA[2])
+				y= G_IMGX_Y + RANDOM(DATA[3])		
+
+			//クリック座標をログに出力してからクリック
+				PRINT "基点:x="+ G_IMGX_X +",y="+ G_IMGX_Y
+				PRINT DATA[0] + " クリック座標：x="+ x  +",y="+ y
+				BTN(LEFT,CLICK,x,y)
+
+		ENDIF
+		shutdown_chkimgx()
+	WEND
+FEND

@@ -1,0 +1,43 @@
+FUNCTION CHECK_BUTONN(DATA[])
+//	引数一覧
+//		DATA[0]		Name 				何のボタンを押すかを入れる（文字列、ex. "OK"）
+//		DATA[1]		Imagepath		  	画像のフルパス
+//		DATA[2]		x1  				画像の起点から右端までの幅（ピクセル）
+//		DATA[3]		y1  				画像の起点から下端までの幅（ピクセル）
+//		DATA[4]		x2  				画像の検索範囲＿始点
+//		DATA[5]		y2					画像の検索範囲＿始点
+//		DATA[6]		x3  				画像の検索範囲＿終点
+//		DATA[7]		y3					画像の検索範囲＿終点
+//		DATA[8]		num					何番目の画像か指定
+//		DATA[9]		loop_count			画像が出てくるまでの待機回数（×0.1s）
+//		DATA[10]	sleep_min			sleepの最低時間
+//		DATA[11]	sleep_max  			sleepの最大時間
+//		DATA[12]	check_flg			ボタンクリック後のチェック機能ON/OFF
+
+
+	COUNT=1
+
+	WHILE TRUE
+		startup_chkimgx()
+		IFB (CHKIMGX(DATA[1],0,DATA[4],DATA[5],DATA[6],DATA[7],DATA[8],10,-1)=FALSE)
+			//ボタンが見つからない場合の処理
+			SLEEP(0.1)
+
+			//ボタンが一定回数見つからなかった場合の処理
+			IFB COUNT > DATA[9]
+				RESULT = 99
+				shutdown_chkimgx()
+				PRINT "ボタンが見つかりません。処理を中断します。"
+				EXIT
+			ENDIF
+			COUNT = COUNT + 1
+
+		ELSE
+			//ボタンが見つかった場合の処理
+			PRINT DATA[0] +"ボタンの存在を確認"
+			RESULT = 0
+			shutdown_chkimgx()
+			EXIT
+
+		ENDIF
+FEND
