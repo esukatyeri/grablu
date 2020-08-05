@@ -1,13 +1,13 @@
 PROCEDURE MAIL(SUBJECT, BODY, TEMP_FILE)
-		mailfrom = "〇〇〇"　// 送信元
-		mailto   = "esukatyeri@gmail.com"　// 送信先
+		mailfrom = "admonitor0000uwsc@gmail.com"　// 送信元
+		mailto = "esukatyeri@gmail.com"　// 送信先
 		subject  = SUBJECT// メールタイトル
 		body     = BODY// メール本文
 		tempfile = TEMP_FILE
 		
 		authflag = true// SMTP認証使用の有無 Trueが使用 Falseが不使用
-		authid   = "〇〇〇"// 送信元
-		authps   = "〇〇〇"// gmailのパスワード
+		authid = "admonitor0000uwsc"// 送信元
+		authps = "Patriotto0723"// gmailのパスワード
 		sslflag  = true// 暗号化された接続(SSL)使用の有無 Trueが使用 Falseが不使用
 		 
 		smtpserver     = "smtp.gmail.com" // 例)smtp.gmail.com
