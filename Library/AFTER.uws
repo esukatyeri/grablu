@@ -5,6 +5,7 @@ FUNCTION AFTER()
 		RC = BUTTON(ok_btn_3)
 		i = 0
 		WHILE i < 3
+			i = i + 1
 			IFB RC = 0
 				BREAK
 			ENDIF
@@ -12,7 +13,6 @@ FUNCTION AFTER()
 			BTN(LEFT,CLICK)
 			RC = BUTTON(ok_btn_4)
 
-			i = i + 1
 			IFB i = 3
 				ERROR_Pattern2
 			ENDIF
@@ -21,6 +21,7 @@ FUNCTION AFTER()
 	//OKを探してクリックする
 		i = 0
 		WHILE i < 3
+			i = i + 1
 			RC = BUTTON(ok_btn_4)
 			IFB RC = 0
 				BREAK
@@ -29,16 +30,43 @@ FUNCTION AFTER()
 			BTN(LEFT,CLICK)
 			RC = BUTTON(ok_btn_4)
 
-			i = i + 1
 			IFB i = 3
 				ERROR_Pattern2
 			ENDIF
 		WEND
 
+	//OKを探してクリックする
+		i = 0
+		WHILE i < 3
+			i = i + 1
+			RC = BUTTON(ok_btn_4)
+			IFB RC = 0
+				BREAK
+			ENDIF
+
+		//CLASSUP対策
+			BTN(LEFT,CLICK)
+			RC = BUTTON(ok_btn_4)
+			IFB RC = 0
+				continue
+			ENDIF
+		//CLOSE対策
+			RC = BUTTON(close)
+			IFB RC = 0
+				continue
+			ENDIF
+
+			IFB i = 3
+				ERROR_Pattern2
+			ENDIF
+		WEND
+
+
 	//もう一度を探してクリックする。
 
 		i = 0
 		WHILE i < 3
+			i = i + 1
 			RC = BUTTON(more_btn)
 			IFB RC = 0
 				BREAK
@@ -47,7 +75,6 @@ FUNCTION AFTER()
 			BTN(LEFT,CLICK)
 			RC = BUTTON(ok_btn_4)
 			
-			i = i + 1
 			IFB i = 3
 				ERROR_Pattern2
 			ENDIF
