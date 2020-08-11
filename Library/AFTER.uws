@@ -1,4 +1,4 @@
-FUNCTION AFTER()
+FUNCTION AFTER(ok_1,ok_2,more,close,reward,2top,)
 //í“¬Œã‚Ìˆ—
 		startup_chkimgx()
 	//OK‚ğ’T‚µ‚ÄƒNƒŠƒbƒN‚·‚é
@@ -73,7 +73,8 @@ FUNCTION AFTER()
 			ENDIF
 
 			BTN(LEFT,CLICK)
-			RC = BUTTON(ok_btn_4)
+			RC = BUTTON(close)
+			RC = BUTTON(more_btn)
 			
 			IFB i = 3
 				ERROR_Pattern2
