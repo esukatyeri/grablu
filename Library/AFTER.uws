@@ -1,63 +1,31 @@
-FUNCTION AFTER(ok_1,ok_2,more,close,reward,2top,)
+FUNCTION AFTER_PTN1(ok_1,ok_2,more,close)
+//ok_1	:戦闘直後のOKの判定用
+//ok_2	:ok_1以外のOK判定用、もしくはok_1の周回用
+//more	:もう一度 の判定用　周回する場合は基本的にこれを使う
+//close	:称号獲得時等のポップ対策
 //戦闘後の処理
-		startup_chkimgx()
-	//OKを探してクリックする
-		RC = BUTTON(ok_btn_3)
-		i = 0
-		WHILE i < 3
-			i = i + 1
-			IFB RC = 0
-				BREAK
-			ENDIF
-			
-			BTN(LEFT,CLICK)
-			RC = BUTTON(ok_btn_4)
-
-			IFB i = 3
-				ERROR_Pattern2
-			ENDIF
-		WEND
 
 	//OKを探してクリックする
 		i = 0
-		WHILE i < 3
+		WHILE i < 5
 			i = i + 1
-			RC = BUTTON(ok_btn_4)
-			IFB RC = 0
-				BREAK
-			ENDIF
-			
-			BTN(LEFT,CLICK)
-			RC = BUTTON(ok_btn_4)
-
-			IFB i = 3
-				ERROR_Pattern2
-			ENDIF
-		WEND
-
-	//OKを探してクリックする
-		i = 0
-		WHILE i < 3
-			i = i + 1
-			RC = BUTTON(ok_btn_4)
+			RC = BUTTON(ok_2)
 			IFB RC = 0
 				BREAK
 			ENDIF
 
-		//CLASSUP対策
-			BTN(LEFT,CLICK)
-			RC = BUTTON(ok_btn_4)
-			IFB RC = 0
-				continue
-			ENDIF
 		//CLOSE対策
 			RC = BUTTON(close)
 			IFB RC = 0
 				continue
 			ENDIF
 
+		//CLASSUP対策
+			BTN(LEFT,CLICK)
+
+		//エラー時の報告
 			IFB i = 3
-				ERROR_Pattern2
+				ERROR_Pattern4
 			ENDIF
 		WEND
 
@@ -65,48 +33,36 @@ FUNCTION AFTER(ok_1,ok_2,more,close,reward,2top,)
 	//もう一度を探してクリックする。
 
 		i = 0
-		WHILE i < 3
+		WHILE i < 5
 			i = i + 1
-			RC = BUTTON(more_btn)
+			RC = BUTTON(more)
 			IFB RC = 0
 				BREAK
 			ENDIF
 
-			BTN(LEFT,CLICK)
+		//称号の確認画面
+			RC = BUTTON(ok_2)
+			IFB RC = 0
+				continue
+			ENDIF
+
+		//称号の確認画面
 			RC = BUTTON(close)
-			RC = BUTTON(more_btn)
-			
-			IFB i = 3
+			IFB RC = 0
+				continue
+			ENDIF
+
+		//CLASSUP対策
+			BTN(LEFT,CLICK)
+
+			IFB i = 5
 				ERROR_Pattern2
+				RESULT = 99
 			ENDIF
 		WEND
 
-//=======================================================================
-	//特殊ボスの出現画面が出ていた場合の処理
-		
-		IFB (CHKIMGX(path_reward,0,300,800,650,950,1,10,-1)=TRUE)
-			RC = BUTTON(reward_btn)
-			RC = BUTTON(ok_btn_4)
-			IFB RC = 99
-				BTN(LEFT,CLICK)
-				RC = BUTTON(ok_btn_4)
-			ENDIF
-			
-	//イベントTOPへ移動
-			RC = BUTTON(2extra_btn)
-			IFB RC = 99
-				BTN(LEFT,CLICK)
-				RC = BUTTON(2extra_btn)
-			ENDIF
-	//シングルバトルを選択
-			RC = BUTTON(charange2_btn)		
+	//称号の確認画面
+		RC = BUTTON(close)
 
-	//マルチバトルの難易度選択　を探してクリックする
-			RC = BUTTON(ex_tar_btn)
-			RC=0
-		ENDIF
-//=======================================================================
-			shutdown_chkimgx()		
-			startup_chkimgx()
-
+		RESULT = 0
 FEND
