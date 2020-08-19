@@ -45,23 +45,24 @@
 	//OKボタン
 	//==================================================================================
 	
-		path_ok              = image_path + "ok1.BMP"
-		path_ok1             = image_path + "ok1.BMP"    //フレンド選択後のOKボタン
-		path_ok2             = image_path + "ok2.BMP"    //半汁選択後のOKボタン
-		path_ok3             = image_path + "ok3.BMP"    //戦闘終了後のOKボタン
-		//path_ok4           = image_path + "ok4.BMP"
-		//path_ok5           = image_path + "ok5.BMP"
+		p_ok                 = image_path + "ok1.BMP"
+		p_ok1                = image_path + "ok1.BMP"    //フレンド選択後のOKボタン
+		p_ok2                = image_path + "ok2.BMP"    //半汁選択後のOKボタン
+		p_ok3                = image_path + "ok3.BMP"    //戦闘終了後のOKボタン
+
 		
-	  //                                                      |  size  |       range       | trg|  loop|    sleep  | check| 補足
-	  //dim _btn             ="メッセージ",    path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-		dim ok_[]            ="ok",            path_ok,         200, 35, 150, 650, 500, 800,   1,    30,     1,   3,   1    //未使用
-		dim ok_1[]           ="ok",            path_ok1,        210, 35,   0, 850, 650, 950,   1,    30,     1,   3,   1    //
-		dim ok_2[]           ="ok",            path_ok2,        200, 30, 180, 650, 500, 800,   1,    30,     1,   2,   1    //
-		dim ok_3[]           ="ok",            path_ok3,        203, 30, 150, 600, 500, 900,   1,   680,     1,   3,   1    //
-		dim ok_4[]           ="ok",            path_ok3,        203, 30, 150, 600, 500, 900,   1,    30,     1,   3,   1    //
-		dim ok_5[]           ="ok",            path_ok3,        203, 30, 300, 600, 600, 700,   1,    30,     1,   3,   1    //
-		dim ok_6[]           ="ok",            path_ok3,        203, 30, 300, 650, 600, 750,   1,    30,     1,   3,   1    //
-		
+	  //                                                       |  size  |       range       | trg|  loop|    sleep  | check| 補足
+	  //dim _btn             = "メッセージ",   p_image,        |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
+		dim ok_[]            = "ok",            p_ok,            200, 35, 150, 650, 500, 800,   1,    30,     1,   3,   1    //未使用
+		dim ok_1[]           = "ok",            p_ok1,           210, 35,   0, 850, 650, 950,   1,    30,     1,   3,   1    //
+		dim ok_2[]           = "ok",            p_ok2,           200, 30, 180, 650, 500, 800,   1,    30,     1,   2,   1    //
+		dim ok_3[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,   680,     1,   3,   1    //
+		dim ok_4[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,    30,     0,   2,   1    //
+		dim ok_5[]           = "ok",            p_ok3,           203, 30, 300, 600, 600, 700,   1,    30,     1,   3,   1    //
+		dim ok_6[]           = "ok",            p_ok3,           203, 30, 300, 650, 600, 750,   1,    30,     1,   3,   1    //
+		dim ok_6[]           = "ok",            p_ok3,           203, 30, 300, 650, 600, 750,   1,     5,     0,   1,   1    //
+
+
 	//==================================================================================
 	//その他共通
 	//==================================================================================
@@ -70,30 +71,31 @@
 		path_one_more        = image_path + "one_more.BMP"
 		path_classup         = image_path + "classup.BMP"
 		path_close           = image_path + "close.BMP"
-	  //                                                      |  size  |       range       | trg|  loop|    sleep  | check|
-	  //dim _btn             ="メッセージ",    path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-		dim friend[]         ="Friend選択",    path_friend ,    100,117,   0, 400, 600, 700,   1,    30,     0,   2,   0
-		dim friend2[]        ="Friend選択",    path_friend ,    100,117,   0, 400, 600, 700,   1,    30,     0,   2,   1
-		dim use[]            = "使用する",     path_use,        141, 36, 350, 700, 600, 850,   1,    10,     1,   2,   1
-		dim more[]           ="もう一度",      path_one_more ,  199, 35,   0, 900, 400,1000,   1,    30,     0,   2,   1
-		dim classup[]        = "Classup",      path_classup,    120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
-		dim close[]          = "close",        path_close,      120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
+	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
+	  //dim _btn             ="メッセージ",            path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
+		dim friend[]         ="Friend選択",            path_friend ,    100,117,   0, 400, 600, 700,   1,    30,     0,   2,   0
+		dim friend2[]        ="Friend選択",            path_friend ,    100,117,   0, 400, 600, 700,   1,    30,     0,   2,   1
+		dim use[]            = "使用する",             path_use,        141, 36, 350, 700, 600, 850,   1,    10,     0,   2,   1
+		dim more[]           ="もう一度",              path_one_more ,  199, 35,   0, 900, 400,1000,   1,    30,     0,   2,   1
+		dim classup[]        = "Classup",              path_classup,    120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
+		dim close[]          = "close",                path_close,      120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
 
 
 	//==================================================================================
 	//戦闘画面
 	//==================================================================================
-		path_full_b          = image_path + "full_b.BMP"
-		path_kyuen           = image_path + "kyuen.BMP"
-		path_call_kyuen      = image_path + "call_kyuen.BMP"
-		path_attack          = image_path + ""
+		p_full_b             = image_path + "full_b.BMP"
+		p_kyuen              = image_path + "kyuen.BMP"
+		p_call_kyuen         = image_path + "call_kyuen.BMP"
+		p_attack             = image_path + ""
 
-	  //                                                      |  size  |       range       | trg|  loop|    sleep  | check|
-	  //dim _btn             ="メッセージ",    path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-		dim full_b[]         ="full ボタン",   path_full_b,      93, 22,   0, 550, 150, 650,   1,    80,     1,  10,   1
-		dim kyuen_b[]        ="救援",          path_kyuen,      219, 22,   0, 750, 300, 800,   1,    15,     0,   1,   1
-		dim call_kyuen[]     ="救援依頼",      path_call_kyuen, 167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
-		dim attack[]         ="攻撃ボタン",    path_attack,     167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
+	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
+	  //dim _btn             ="メッセージ",            p_image,       |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
+		dim full_b[]         ="full ボタン",           p_full_b,         93, 22,   0, 550, 150, 650,   1,    80,     1,  10,   1
+		dim kyuen_b[]        ="救援",                  p_kyuen,         219, 22,   0, 750, 300, 800,   1,    15,     0,   1,   1
+		dim call_kyuen[]     ="救援依頼",              p_call_kyuen,    167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
+		dim attack[]         ="攻撃ボタン",            p_attack,        167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
+
 
 //==================================================================================
 //イベント関連
@@ -102,24 +104,32 @@
 	//==============================================================================
 	//イベント共通
 	//==============================================================================
-		path_reward          = image_path + "reward.BMP"
-		path_2top_ev         = image_path + "2top_ev.BMP"
-		path_2top_extr       = image_path + "2top_extr.BMP"
+		p_reward             = image_path + "reward.BMP"
+		p_2top_ev            = image_path + "2top_ev.BMP"
+		p_2top_extr          = image_path + "2top_extr.BMP"
 			
-	  //                                                      |  size  |       range       | trg|  loop|    sleep  | check|
-	  //dim _btn             ="メッセージ",    path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-		dim reward[]         = "報酬を獲得",   path_reward,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1
+	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
+	  //dim _btn             = "メッセージ",           path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
+		dim reward[]         = "報酬を獲得",           p_reward,        210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1
 
 //設定値未修整
-		dim 2top_ev[]        = "トップ画面へ", path_2top_ev,    210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //イベントTOP画面へ
-		dim 2top_extr[]      = "トップ画面へ", path_2top_extr,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
-		dim multi[]          = "マルチバトル", path_multi,      210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
-		dim trg_vh[]         = "VH難易度選択", path_multi,      210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトルの難易度VH選択
-		dim trg_ex[]         = "EX難易度選択", path_multi,      210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトルの難易度EX選択
+		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //イベントTOP画面へ
+		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
+		dim multi[]          = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
 
 
+	//==============================================================================
+	//古戦場
+	//==============================================================================
+		p_bf_multi           = image_path + "bf_multi.BMP"
+		p_bf_trg_vh          = image_path + "bf_trg_vh.BMP"
+		p_bf_trg_ex          = image_path + "bf_trg_ex.BMP"
+		p_bf_trg_exp         = image_path + "bf_trg_expls.BMP"
 
-
+		dim bf_multi[]       = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
+		dim bf_trg_vh[]      = "VH難易度選択",         p_extr_trg_vh,   210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //難易度VH選択
+		dim bf_trg_ex[]      = "EX難易度選択",         p_extr_trg_ex,   210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //難易度EX選択
+		dim bf_trg_exp[]     = "EX+難易度選択",        p_extr_trg_exp,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //難易度EX+選択
 
 
 	//==============================================================================
@@ -127,16 +137,20 @@
 	//==============================================================================
 	
 	
-	
-		dim ex_tar_vh_btn[]  = "VHを選択",     path_ev_tar_vh,  136,184,   0, 550, 650, 850, 1, 20, 1,  2,1
-		dim ex_tar_hl_btn[]  = "HLを選択",     path_ev_tar_hl,  137,187,   0, 550, 650, 850, 1, 20, 1,  2,1
-		dim ex_tar_ex_btn[]  = "EXを選択",     path_ev_tar_ex,  130,180,   0, 550, 650, 850, 1, 20, 1,  2,1
+//		p_extr_trg_vh        = image_path + "trg_vh.BMP"
+//		p_extr_trg_ex        = image_path + "trg_ex.BMP"
+//		p_extr_trg_exp       = image_path + "trg_expls.BMP"
 
-	//==============================================================================
-	//古戦場
-	//==============================================================================
-		//なし
-		
+
+//		dim extr_trg_vh[]    = "VH難易度選択",         p_extr_trg_vh,   210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
+//		dim extr_trg_ex[]    = "EX難易度選択",         p_extr_trg_ex,   210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
+//		dim extr_trg_exp[]   = "EX+難易度選択",        p_extr_trg_exp,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
+
+//		dim ex_tar_vh_btn[]  = "VHを選択",             path_ev_tar_vh,  136,184,   0, 550, 650, 850, 1, 20, 1,  2,1
+//		dim ex_tar_hl_btn[]  = "HLを選択",             path_ev_tar_hl,  137,187,   0, 550, 650, 850, 1, 20, 1,  2,1
+//		dim ex_tar_ex_btn[]  = "EXを選択",             path_ev_tar_ex,  130,180,   0, 550, 650, 850, 1, 20, 1,  2,1
+
+
 	//==============================================================================
 	//ブレグラ
 	//==============================================================================
