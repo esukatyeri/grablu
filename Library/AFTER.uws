@@ -4,7 +4,16 @@ FUNCTION AFTER_PTN1(ok_1,ok_2,more,close)
 //more	:もう一度 の判定用　周回する場合は基本的にこれを使う
 //close	:称号獲得時等のポップ対策
 //戦闘後の処理
+i = 0
 
+	//OKを探す
+		CHECK_BUTONN(ok_1)
+		SLEEP(1)			//ボタンがスラインドインしてくるので、移動完了まで待つ
+		
+		IFB RC = 99
+			EXIT
+		ENDIF
+		
 	//OKを探してクリックする
 		i = 0
 		WHILE i < 5
@@ -25,7 +34,7 @@ FUNCTION AFTER_PTN1(ok_1,ok_2,more,close)
 
 		//エラー時の報告
 			IFB i = 3
-				ERROR_Pattern4
+				ERROR_Pattern3("OK","戦闘後のOKボタンが見つかりません")
 			ENDIF
 		WEND
 
@@ -40,7 +49,7 @@ FUNCTION AFTER_PTN1(ok_1,ok_2,more,close)
 				BREAK
 			ENDIF
 
-		//称号の確認画面
+		//OKの確認画面
 			RC = BUTTON(ok_2)
 			IFB RC = 0
 				continue
@@ -55,9 +64,11 @@ FUNCTION AFTER_PTN1(ok_1,ok_2,more,close)
 		//CLASSUP対策
 			BTN(LEFT,CLICK)
 
+		//一定回数ループしたら異常終了
 			IFB i = 5
-				ERROR_Pattern2
+				ERROR_Pattern3("more","戦闘後のもう一度ボタンが見つかりません")
 				RESULT = 99
+				EXIT
 			ENDIF
 		WEND
 
