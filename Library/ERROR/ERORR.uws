@@ -1,7 +1,7 @@
 PROCEDURE ERROR_Pattern1(SUBJECT,BODY)
 
 		BEEP
-		RC = SCREENSHOT(ACT)
+		RC = SCREENSHOT("ACT")
 		MAIL(SUBJECT, BODY, RC)
 FEND
 
@@ -10,14 +10,14 @@ PROCEDURE ERROR_Pattern2
 
 
 		BEEP
-		RC = SCREENSHOT(ACT)
+		RC = SCREENSHOT("ACT")
 		MAIL("エラー報告", "添付ファイルを確認してください", RC)
 FEND
 
 PROCEDURE ERROR_Pattern3(SUBJECT,BODY)
 
 		BEEP
-		RC = SCREENSHOT(ACT)
+		RC = SCREENSHOT("ACT")
 		MAIL2(SUBJECT, BODY)
 FEND
 
@@ -25,7 +25,7 @@ PROCEDURE ERROR_Pattern4
 
 
 		BEEP
-		RC = SCREENSHOT(ACT)
+		RC = SCREENSHOT("ACT")
 		MAIL2("エラー報告", "CLASSUPでエラーになった可能性があります")
 FEND
 
@@ -33,6 +33,6 @@ PROCEDURE ERROR_Pattern5
 
 
 		BEEP
-		RC = SCREENSHOT(ALL)
+		RC = SCREENSHOT("ALL")
 		MAIL("エラー報告", "添付ファイルを確認してください", RC)
 FEND

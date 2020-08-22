@@ -1,4 +1,5 @@
-FUNCTION BATTLE_EX_pls(FULL[],STIME)
+FUNCTION BATTLE_EX_pls(FULL[])
+
 //戦闘画面用の関数
 //引数の説明
 //FULL[]：AUTO（FULL）のボタンの設定値
@@ -12,12 +13,11 @@ FUNCTION BATTLE_EX_pls(FULL[],STIME)
 //AUTO（FULL）の処理
 
 	COUNT = 0
-
-	while ( RC = 99 )		//正常終了するか、5回失敗したときのみ抜ける
+	RC = PUSH_BUTTON(FULL)
+	WHILE ( RC = 99 )		//正常終了するか、5回失敗したときのみ抜ける
 		
-		RC = BUTTON(FULL)
+		RC = PUSH_BUTTON(FULL)
 		IFB RC = 0
-			SLEEP(STIME)		//FULLを押せたときのみSLEEPを実行
 			BREAK
 		ENDIF
 
@@ -25,9 +25,6 @@ FUNCTION BATTLE_EX_pls(FULL[],STIME)
 //↓↓↓↓↓↓↓エラーハンドリング↓↓↓↓↓↓↓↓↓
 	//FULLボタンがなかった場合の処理
 		BEEP
-		IFB COUNT = 1
-			SCREENSHOT
-		ENDIF
 
 	//3回失敗したときはスキップ
 		IFB COUNT = 3

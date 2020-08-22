@@ -19,25 +19,31 @@ FUNCTION CHECK_BUTONN(DATA[])
 
 	WHILE TRUE
 		startup_chkimgx()
-		IFB (CHKIMGX(DATA[1],0,DATA[4],DATA[5],DATA[6],DATA[7],DATA[8],10,-1)=FALSE)
-			//ボタンが見つからない場合の処理
-			SLEEP(0.1)
+		IFB (CHKIMGX(DATA[1],0,DATA[4],DATA[5],DATA[6],DATA[7],DATA[8], 5,-1)=FALSE)
 
+			//ボタンが見つからない場合の処理
+			shutdown_chkimgx()
+			SLEEP(0.1)
 			//ボタンが一定回数見つからなかった場合の処理
 			IFB COUNT > DATA[9]
 				RESULT = 99
-				shutdown_chkimgx()
-				PRINT "ボタンが見つかりません。処理を中断します。"
 				EXIT
 			ENDIF
 			COUNT = COUNT + 1
 
 		ELSE
 			//ボタンが見つかった場合の処理
-			PRINT DATA[0] +"ボタンの存在を確認"
-			RESULT = 0
+//			BEEP
+//			PRINT G_IMGX_SCORE + "画像判定のスコア"
+//			SCREENSHOT("ACT")
 			shutdown_chkimgx()
+			PRINT DATA[0] +"ボタンの存在を確認"
+//			PRINT G_IMGX_X
+//			PRINT G_IMGX_Y
+//			MMV(G_IMGX_X,G_IMGX_Y)
+			RESULT = 0
 			EXIT
 
 		ENDIF
+	WEND
 FEND
