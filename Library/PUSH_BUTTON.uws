@@ -40,8 +40,8 @@ FUNCTION PUSH_BUTTON(DATA[])
 		y= G_IMGX_Y + RANDOM(DATA[3])		
 
 	//どこをクリックするかログに出力してからクリック
-		PRINT "基点:x="+ G_IMGX_X +",y="+ G_IMGX_Y
-		PRINT "x="+ x  +",y="+ y
+//		PRINT "基点:x="+ G_IMGX_X +",y="+ G_IMGX_Y
+//		PRINT "x="+ x  +",y="+ y
 		BTN(LEFT,CLICK,x,y)
 		shutdown_chkimgx()
 		

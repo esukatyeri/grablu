@@ -30,18 +30,18 @@ FUNCTION APandFRIEND(USE[],FRIEND[],OK1[],OK2[])
 		shutdown_chkimgx()
 	//エリクシールハーフ　を探してクリックする
 		IFB Checker = 0
-			RC = BUTTON(USE)
-			RC = BUTTON(OK2)
+			RC = PUSH_BUTTON(USE)
+			RC = PUSH_BUTTON(OK2)
 		ENDIF
 
 	//フレンド石を選択する
 	COUNT=0
 		WHILE TRUE
-			RC = BUTTON(FRIEND)
+			RC = PUSH_BUTTON(FRIEND)
 			startup_chkimgx()
 			IFB (CHKIMGX(OK1[1],0,OK1[4],OK1[5],OK1[6],OK1[7],OK1[8],10,-1)=TRUE)
 				shutdown_chkimgx()
-				RC = BUTTON(OK1)
+				RC = PUSH_BUTTON(OK1)
 				BREAK
 			ENDIF
 			IFB COUNT > 15

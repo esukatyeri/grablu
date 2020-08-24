@@ -60,7 +60,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		dim ok_1[]           = "ok",            p_ok1,           210, 35,   0, 850, 650, 950,   1,    30,     1,   3,   1    //
 		dim ok_2[]           = "ok",            p_ok2,           200, 30, 180, 650, 500, 800,   1,    30,     1,   2,   1    //
 		dim ok_3[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,   600,     1,   3,   1    //
-		dim ok_4[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,    10,     0,   1,   1    //
+		dim ok_4[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,    30,     0,   2,   1    //
 		dim ok_5[]           = "ok",            p_ok3,           203, 30, 300, 600, 600, 700,   1,    30,     1,   3,   1    //
 		dim ok_6[]           = "ok",            p_ok3,           203, 30, 300, 650, 600, 750,   1,    30,     1,   3,   1    //
 		dim ok_7[]           = "ok",            p_ok3,           203, 30, 300, 650, 600, 750,   1,     5,     0,   1,   1    //
@@ -81,7 +81,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		dim use[]            = "使用する",             path_use,        141, 36, 350, 700, 600, 850,   1,    10,     0,   2,   1
 		dim more[]           ="もう一度",              path_one_more ,  199, 35,   0, 550, 650, 700,   1,    30,     0,   1,   1
 		dim classup[]        = "Classup",              path_classup,    120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
-		dim close_btn[]      = "close",                path_close,      120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
+		dim close_btn[]      = "close",                path_close,      120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
 
 
 	//==================================================================================
@@ -156,7 +156,7 @@ startup_chkimgx() //CHKIMGX関数開始
 
 
 
-
+	
 
 
 COUNTER = 1
@@ -166,50 +166,17 @@ ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1
 //main
 PRINT "実行開始"
 
-	WHILE TRUE	//永久に実行
-
-
-
-//------------------------------------------------------
-	//APが不足していないかのチェック
-	//フレンドを探してクリックする
-		RC = APandFRIEND(use,friend,ok_1,ok_2)
-		IFB RC = 99
-			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
-			EXITEXIT
-		ENDIF
-
-//------------------------------------------------------
-
-	//auto(FULL)の確認を探してクリックする
-		RC = BATTLE_EX_pls(full)
-
-		IFB RC = 0
-			PRINT "SLEEP時間に移行"
-			WHILE CHECK_BUTONN(ok_4) <> 0
-				SLEEP(1)
-			WEND
-			SLEEP(0.3)
-		ENDIF		
-
-//-------------------------------------------------------
-//戦闘後
 
 	//戦闘後の処理を集約
-		AFTER_PTN1(ok_3,ok_4,more,close_btn)
+		RC = PUSH_BUTTON(more)
 
-	//一定回数で休憩を入れる
-		IFB (COUNTER = 60) OR (COUNTER = 133) OR (COUNTER = 166)
-			S_TIME = 300 + RANDOM(120)
-			SLEEP(S_TIME)
-		ENDIF
 
 
 		COUNTER = COUNTER + 1
 		PRINT "============================"
-		PRINT COUNTER + "週目の処理です"
+
 		PRINT "============================"
-	WEND
+
 PRINT "実行完了"
 
 
