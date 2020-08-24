@@ -1,0 +1,61 @@
+FUNCTION BATTLE_HELL_95(FULL[],ok[],kyuen_b[],call[],ok[])
+
+//戦闘画面用の関数w
+//引数の説明
+//FULL[]：AUTO（FULL）のボタンの設定値
+//STIME ：戦闘にかかる時間、SLEEPの時間
+i = 0
+j = 0
+//救援の処理（未実装）
+
+	HELPME(KYUEN[],CALL[],OK[])
+
+g
+//AUTO（FULL）の処理
+
+	COUNT = 0
+	RC = PUSH_BUTTON(FULL)
+	WHILE ( RC = 99 )		//正常終了するか、5回失敗したときのみ抜ける
+		
+		RC = PUSH_BUTTON(FULL)
+		IFB RC = 0
+			BREAK
+		ENDIF
+
+
+//↓↓↓↓↓↓↓エラーハンドリング↓↓↓↓↓↓↓↓↓
+	//FULLボタンがなかった場合の処理
+		BEEP
+
+	//3回失敗したときはスキップ
+		IFB COUNT = 3
+			ERROR_Pattern3("自動戦闘に失敗","FULLボタンが見つかりませんでした")
+			BREAK
+		ENDIF
+//↑↑↑↑↑↑↑エラーハンドリング↑↑↑↑↑↑↑↑↑
+
+		COUNT = COUNT + 1
+	WEND
+
+		IFB RC = 0
+			PRINT "SLEEP時間に移行"
+			WHILE CHECK_BUTONN(ok) <> 0
+				SLEEP(1)
+				i = i + 1
+				
+				IFB i = 5
+					i = 0
+					update_w()
+					IFB j = 1
+						ERROR_Pattern1("戦闘でフリーズ","戦闘時間が10分を超えています")
+						RESULT = 99
+						EXIT
+					ENDIF
+				ENDIF
+				
+			WEND
+			SLEEP(0.3)
+		ENDIF	
+	
+	RESULT = RC
+FEND

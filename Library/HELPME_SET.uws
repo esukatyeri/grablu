@@ -1,4 +1,4 @@
-FUNCTION HELPME_SET(KYUEN[],CALL[],OK[])
+FUNCTION HELPME(KYUEN[],CALL[],OK[])
 //	KYUEN[]		救援ボタンのデータ配列
 //	CALL[]		救援依頼ボタンのデータ配列
 //	OK[]		OKボタンのデータ配列
