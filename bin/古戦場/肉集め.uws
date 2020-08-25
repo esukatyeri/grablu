@@ -9,14 +9,15 @@ OPTION LOGPATH= "C:\github\grablu\log\niku.txt"
 OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
 
 //ライブラリ呼び出し
-CALL ChkImgX.uws //CHKIMGX関数を別ファイルから呼び出しておく。
+CALL BATTLE_EX_p.uws        			        //
+CALL ChkImgX.uws								//CHKIMGX関数を別ファイルから呼び出しておく。
 
 CALL C:\github\grablu\Library\PUSH_BUTTON.uws     //
 CALL C:\github\grablu\Library\APandFRIEND.uws      //
 
 CALL C:\github\grablu\Library\AFTER.uws           //
 CALL C:\github\grablu\Library\CHECK_BUTONNv2.uws   //
-CALL BATTLE_EX_p.uws                 //
+CALL C:\github\grablu\Library\Read_ini.uws     //
 
 CALL C:\github\grablu\Library\ERROR\BEEP.uws       //
 CALL C:\github\grablu\Library\ERROR\ERORR.uws      //
@@ -155,11 +156,7 @@ startup_chkimgx() //CHKIMGX関数開始
 
 
 
-
-
-
-
-COUNTER = 1
+COUNTER = READ_INI("肉","カウンター","土古戦場.ini")
 COUNT = 0
 ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
 
@@ -176,6 +173,7 @@ PRINT "実行開始"
 		RC = APandFRIEND(use,friend,ok_1,ok_2)
 		IFB RC = 99
 			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
+			WRITEINI("肉","カウンター",COUNTER, "土古戦場.ini")
 			EXITEXIT
 		ENDIF
 
@@ -199,8 +197,9 @@ PRINT "実行開始"
 		AFTER_PTN1(ok_3,ok_4,more,close_btn)
 
 	//一定回数で休憩を入れる
-		IFB (COUNTER = 60) OR (COUNTER = 133) OR (COUNTER = 166)
-			S_TIME = 300 + RANDOM(120)
+		IFB (COUNTER = 60) OR (COUNTER = 94) OR (COUNTER = 166)
+			S_TIME = 300 + RANDOM(COUNTER)
+			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + S_TIME + " 秒のSLEEP中です。")
 			SLEEP(S_TIME)
 		ENDIF
 
@@ -211,6 +210,6 @@ PRINT "実行開始"
 		PRINT "============================"
 	WEND
 PRINT "実行完了"
-
+WRITEINI("肉","カウンター",COUNTER, "土古戦場.ini")
 
 

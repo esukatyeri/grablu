@@ -1,0 +1,15 @@
+FUNCTION READ_INI(section,key,path)
+//section	:読み込みたいセクション
+//key		:読み込みたいキー
+//path		:INIファイルのパス
+
+	flag = FOPEN(path, F_EXISTS) // ファイルの存在チェックモード
+	IFB flag
+		RESULT = READINI(section,key,path)
+		PRINT RESULT
+	ELSE
+		WRITEINI(section,key,0,path)
+		RESULT = 0
+	ENDIF
+
+FEND
