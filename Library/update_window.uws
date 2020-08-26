@@ -1,0 +1,94 @@
+FUNCTION AFTER_PTN1(ok_1[],ok_2[],more[],close_btn[])
+//ok_1	:戦闘直後のOKの判定用
+//ok_2	:ok_1以外のOK判定用、もしくはok_1の周回用
+//more	:もう一度 の判定用　周回する場合は基本的にこれを使う
+//close	:称号獲得時等のポップ対策
+//戦闘後の処理
+i = 0
+
+	//OKを探してクリックする
+		i = 0
+		WHILE i < 5
+			i = i + 1
+			RC = PUSH_BUTTON(ok_2)
+			IFB RC = 0
+				BREAK
+			ENDIF
+
+		//CLOSE対策
+			RC = PUSH_BUTTON(close_btn)
+			IFB RC = 0
+				continue
+			ENDIF
+
+		//CLASSUP対策
+			BTN(LEFT,CLICK)
+
+		//エラー時の報告
+			IFB i = 3
+				ERROR_Pattern3("OK","戦闘後のOKボタンが見つかりません")
+			ENDIF
+		WEND
+
+	//OKを探してクリックする
+		i = 0
+		WHILE i < 5
+			i = i + 1
+			RC = PUSH_BUTTON(ok_2)
+			IFB RC = 0
+				BREAK
+			ENDIF
+
+		//CLOSE対策
+			RC = PUSH_BUTTON(close_btn)
+			IFB RC = 0
+				continue
+			ENDIF
+
+		//CLASSUP対策
+			BTN(LEFT,CLICK)
+
+		//エラー時の報告
+			IFB i = 3
+				ERROR_Pattern3("OK","戦闘後のOKボタンが見つかりません")
+			ENDIF
+		WEND
+
+	//もう一度を探してクリックする。
+
+		i = 0
+		WHILE i < 5
+			i = i + 1
+			RC = PUSH_BUTTON(more)
+			IFB RC = 0
+				BREAK
+			ENDIF
+
+		//OKの確認画面
+			RC = PUSH_BUTTON(ok_2)
+			IFB RC = 0
+				continue
+			ENDIF
+
+		//称号の確認画面
+			RC = PUSH_BUTTON(close_btn)
+			IFB RC = 0
+				continue
+			ENDIF
+
+		//CLASSUP対策
+			BTN(LEFT,CLICK)
+
+		//一定回数ループしたら異常終了
+			IFB i = 5
+				ERROR_Pattern3("more","戦闘後のもう一度ボタンが見つかりません")
+				RESULT = 99
+				EXIT
+			ENDIF
+		WEND
+
+	//称号の確認画面
+		RC = PUSH_BUTTON(close_btn)
+
+		RESULT = 0
+FEND
