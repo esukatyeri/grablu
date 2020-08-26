@@ -9,7 +9,7 @@ OPTION LOGPATH= "C:\github\grablu\log\niku.txt"
 OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
 
 //ライブラリ呼び出し
-CALL BATTLE_EX_p.uws                 //
+CALL BATTLE_HELL_95.uws                 //
 CALL ChkImgX.uws 					 //CHKIMGX関数を別ファイルから呼び出しておく。
 
 CALL C:\github\grablu\Library\PUSH_BUTTON.uws     //
@@ -76,7 +76,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		p_one_more        = image_path + "one_more.BMP"
 		p_classup         = image_path + "classup.BMP"
 		p_close           = image_path + "close.BMP"
-		p_update_window      = image_path + "update_window.BMP"
+//		p_update_window      = image_path + "update_window.BMP"
 
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             ="メッセージ",            path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
@@ -86,7 +86,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		dim more[]           ="もう一度",              p_one_more ,     199, 35,   0, 550, 650, 700,   1,    30,     0,   1,   1
 		dim classup[]        = "Classup",              p_classup,       120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
 		dim close_btn[]      = "close",                p_close,         120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
-		dim update_w[]       = "更新ボタンを押します", p_update_window, 120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
+//		dim update_w[]       = "更新ボタンを押します", p_update_window, 120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
 
 
 	//==================================================================================
@@ -173,7 +173,7 @@ ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1
 //main
 PRINT "実行開始"
 
-	REPERT	//escを押すか、エラーが発生するまでループ
+	REPEAT	//escを押すか、エラーが発生するまでループ
 
 	s_time[0] = s_time[1]
 	s_time[1] = GETTIME()
@@ -192,7 +192,7 @@ PRINT "実行開始"
 
 
 	//戦闘関係
-		RC =  BATTLE_HELL_95(full,ok_3,kyuen_b,call_kyuen,ok_2,counter,s_time[0],e_time)
+		RC =  BATTLE_HELL_95(full)
 
 		IFB RC = 0
 			PRINT "SLEEP時間に移行"
@@ -209,13 +209,9 @@ PRINT "実行開始"
 				i = i + 1
 				IFB i = 10
 					i = 0
-					update_w()
-					IFB j = 1
-						ERROR_Pattern1("戦闘でフリーズ","戦闘時間が10分を超えています。画面を更新します")
-						RC = PUSH_BUTTON(update_window)
-						RESULT = 99
-						EXIT
-					ENDIF
+					ERROR_Pattern1("戦闘でフリーズ","戦闘時間が10分を超えています。画面を更新します")
+//					RC = PUSH_BUTTON(update_window)
+					EXIT
 				ENDIF
 			WEND
 			SLEEP(0.3)
@@ -230,9 +226,9 @@ PRINT "実行開始"
 
 	//一定回数で休憩を入れる
 		IFB (COUNTER = 60) OR (COUNTER = 94) OR (COUNTER = 166)
-			S_TIME = 300 + RANDOM(COUNTER)
-			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + S_TIME + " 秒のSLEEP中です。")
-			SLEEP(S_TIME)
+			sleep_TIME = 300 + RANDOM(COUNTER)
+			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + sleep_TIME + " 秒のSLEEP中です。")
+			SLEEP(sleep_TIME)
 		ENDIF
 
 

@@ -1,4 +1,4 @@
-FUNCTION BATTLE_HELL_95(FULL[],ok[],kyuen_b[],call[],ok[],update_window[],counter,start_time,end_time)
+FUNCTION BATTLE_HELL_95(FULL[])
 
 //í“¬‰æ–Ê—p‚ÌŠÖ”w
 //ˆø”‚Ìà–¾
@@ -10,7 +10,7 @@ j = 0
 
 //	HELPME(KYUEN[],CALL[],OK[])
 
-g
+
 //AUTOiFULLj‚Ìˆ—
 
 	COUNT = 0
