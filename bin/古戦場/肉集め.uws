@@ -155,7 +155,8 @@ startup_chkimgx() //CHKIMGX関数開始
 //		dim ex_tar_ex_btn[]  = "EXを選択",             path_ev_tar_ex,  130,180,   0, 550, 650, 850, 1, 20, 1,  2,1
 
 
-
+dim s_time[] = 0,0
+dim e_time = 0
 COUNTER = READ_INI("肉","カウンター","土古戦場.ini")
 COUNT = 0
 ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
@@ -165,6 +166,8 @@ PRINT "実行開始"
 
 	WHILE TRUE	//永久に実行
 
+	s_time[0] = s_time[1]
+	s_time[1] = GETTIME()
 
 
 //------------------------------------------------------
@@ -184,6 +187,14 @@ PRINT "実行開始"
 
 		IFB RC = 0
 			PRINT "SLEEP時間に移行"
+
+	//前回の周回時間を記録
+			time = e_time - s_time[0]
+			FNAME = "log.txt"
+			Fid = FOPEN(FNAME,F_READ or F_WRITE) 
+			FPUT(Fid,COUNTER + "<#TAB>"+ time,0,1) 
+			FCLOSE(Fid,TRUE) 
+
 			WHILE CHECK_BUTONN(ok_4) <> 0
 				SLEEP(1)
 			WEND
@@ -208,6 +219,8 @@ PRINT "実行開始"
 		PRINT "============================"
 		PRINT COUNTER + "週目の処理です"
 		PRINT "============================"
+		e_time = GETTIME()
+
 	WEND
 PRINT "実行完了"
 WRITEINI("肉","カウンター",COUNTER, "土古戦場.ini")
