@@ -45,7 +45,9 @@ FUNCTION APandFRIEND(USE[],FRIEND[],OK1[],OK2[])
 				BREAK
 			ENDIF
 			IFB COUNT > 15
-				BREAK
+				shutdown_chkimgx()
+				RC = 99
+				EXIT
 			ENDIF
 			
 			shutdown_chkimgx()
