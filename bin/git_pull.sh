@@ -1,4 +1,8 @@
 cd /c/github/grablu
-sleep 1
+pwd
+sleep 5
+
 
 git pull
+
+sleep 5
