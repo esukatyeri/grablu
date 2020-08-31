@@ -45,6 +45,7 @@ FUNCTION APandFRIEND(USE[],FRIEND[],OK1[],OK2[])
 				BREAK
 			ENDIF
 			IFB COUNT > 15
+				RC = 99
 				BREAK
 			ENDIF
 			

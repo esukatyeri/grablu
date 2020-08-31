@@ -209,9 +209,9 @@ PRINT "実行開始"
 
 	//一定回数で休憩を入れる
 		IFB (COUNTER = 60) OR (COUNTER = 94) OR (COUNTER = 166)
-			S_TIME = 300 + RANDOM(COUNTER)
-			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + S_TIME + " 秒のSLEEP中です。")
-			SLEEP(S_TIME)
+			Sleep_TIME = 300 + RANDOM(COUNTER)
+			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + Sleep_TIME + " 秒のSLEEP中です。")
+			SLEEP(Sleep_TIME)
 		ENDIF
 
 
