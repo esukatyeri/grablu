@@ -45,14 +45,9 @@ FUNCTION APandFRIEND(USE[],FRIEND[],OK1[],OK2[])
 				BREAK
 			ENDIF
 			IFB COUNT > 15
-<<<<<<< HEAD
-				RC = 99
-				BREAK
-=======
 				shutdown_chkimgx()
 				RC = 99
 				EXIT
->>>>>>> 8745fc34ceb943822c1e0f314cce55839e2cc0c8
 			ENDIF
 			
 			shutdown_chkimgx()

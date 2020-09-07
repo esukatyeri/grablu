@@ -109,15 +109,15 @@ startup_chkimgx() //CHKIMGX関数開始
 	//イベント共通
 	//==============================================================================
 		p_reward             = image_path + "reward.BMP"
-		p_2top_ev            = image_path + "2top_ev.BMP"
-		p_2top_extr          = image_path + "2top_extr.BMP"
+		p_2top_ev            = image_path + "2ev_top.BMP"
+		p_2top_extr          = image_path + "2ev_top.BMP"
 			
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             = "メッセージ",           path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-//		dim reward[]         = "報酬を獲得",           p_reward,        210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1
+		dim reward[]         = "報酬を獲得",           p_reward,        210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1
 
 //設定値未修整
-//		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //イベントTOP画面へ
+		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 200, 590, 460, 660,   1,    15,     0,   2,   1    //イベントTOP画面へ
 //		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
 //		dim multi[]          = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
 
@@ -145,8 +145,8 @@ startup_chkimgx() //CHKIMGX関数開始
 
 
 		dim stry_multi[]     = "multi選択",            p_multi      ,   500,110,  38, 818, 200, 860,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
-		dim stry_lev_vh[]    = "VH難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   2,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
-		dim stry_lev_ex[]    = "EX難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
+		dim stry_lev_vh[]    = "VH難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
+		dim stry_lev_ex[]    = "EX難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   2,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
 //		dim stry_lev_hl[]    = "EX+難易度選択",        p_level      ,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
 
 //		dim ex_tar_vh_btn[]  = "VHを選択",             path_ev_tar_vh,  136,184,   0, 550, 650, 850, 1, 20, 1,  2,1
@@ -154,9 +154,10 @@ startup_chkimgx() //CHKIMGX関数開始
 //		dim ex_tar_ex_btn[]  = "EXを選択",             path_ev_tar_ex,  130,180,   0, 550, 650, 850, 1, 20, 1,  2,1
 
 
+
 dim s_time[] = 0,0
 dim e_time = 0
-COUNTER = READ_INI("肉","カウンター","土古戦場.ini")
+COUNTER = READ_INI("イベント","VH", "イベント.ini")
 COUNT = 0
 ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
 
@@ -204,7 +205,7 @@ PRINT "実行開始"
 //戦闘後
 
 	//戦闘後の処理を集約
-		AFTER_PTN1(ok_3,ok_4,more,close_btn)
+		AFTER_PTN2(ok_3,ok_4,more,close_btn,reward,2top_ev,stry_multi,stry_lev_vh)
 
 
 
