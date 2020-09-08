@@ -202,6 +202,7 @@ PRINT "実行開始"
 			Fid = FOPEN(FNAME,F_READ or F_WRITE) 
 			FPUT(Fid,COUNTER + "<#TAB>"+ time,0,1) 
 			FCLOSE(Fid,TRUE) 
+			WRITEINI("95HELL","カウンター",COUNTER, "土古戦場.ini")
 
 	//戦闘終了するまで待機
 			i = 0
@@ -224,12 +225,16 @@ PRINT "実行開始"
 	//戦闘後の処理を集約
 		AFTER_PTN1(ok_3,ok_4,more,close_btn)
 
+<<<<<<< HEAD
+		ERROR_Pattern3("周回数の報告",COUNTER + " 周しています。")
+=======
 	//一定回数で休憩を入れる
 		IFB (COUNTER = 60) OR (COUNTER = 94) OR (COUNTER = 166)
 			j = 300 + RANDOM(COUNTER)
 			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + j + " 秒のSLEEP中です。")
 			SLEEP(j)
 		ENDIF
+>>>>>>> 8745fc34ceb943822c1e0f314cce55839e2cc0c8
 
 
 
@@ -241,6 +246,6 @@ PRINT "実行開始"
 		e_time = GETTIME()
 
 until GetKeyState(VK_ESC)　//エスケープキーが押されたら終了
-WRITEINI("95HELL","カウンター",COUNTER, "土古戦場.ini")
+
 PRINT "実行完了"
 

@@ -9,14 +9,15 @@ OPTION LOGPATH= "C:\github\grablu\log\niku.txt"
 OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
 
 //ライブラリ呼び出し
-CALL BATTLE_EX_p.uws        			        //
-CALL ChkImgX.uws								//CHKIMGX関数を別ファイルから呼び出しておく。
+CALL BATTLE_HELL_95.uws                 //
+CALL ChkImgX.uws 					 //CHKIMGX関数を別ファイルから呼び出しておく。
 
 CALL C:\github\grablu\Library\PUSH_BUTTON.uws     //
 CALL C:\github\grablu\Library\APandFRIEND.uws      //
 
 CALL C:\github\grablu\Library\AFTER.uws           //
 CALL C:\github\grablu\Library\CHECK_BUTONNv2.uws   //
+CALL C:\github\grablu\Library\HELPME_SET.uws
 CALL C:\github\grablu\Library\Read_ini.uws     //
 
 CALL C:\github\grablu\Library\ERROR\BEEP.uws       //
@@ -58,8 +59,8 @@ startup_chkimgx() //CHKIMGX関数開始
 	  //                                                       |  size  |       range       | trg|  loop|    sleep  | check| 補足
 	  //dim _btn             = "メッセージ",   p_image,        |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
 		dim ok_[]            = "ok",            p_ok,            200, 35, 150, 650, 500, 800,   1,    30,     1,   3,   1    //未使用
-		dim ok_1[]           = "ok",            p_ok1,           210, 35,   0, 850, 650, 950,   1,    30,     1,   3,   1    //
-		dim ok_2[]           = "ok",            p_ok2,           200, 30, 180, 650, 500, 800,   1,    30,     1,   2,   1    //
+		dim ok_1[]           = "ok",            p_ok1,           210, 35,   0, 850, 650, 950,   1,    20,     1,   3,   1    //
+		dim ok_2[]           = "ok",            p_ok2,           200, 30, 180, 650, 500, 800,   1,    15,     0,   1,   1    //
 		dim ok_3[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,   600,     1,   3,   1    //
 		dim ok_4[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,    10,     0,   1,   1    //
 		dim ok_5[]           = "ok",            p_ok3,           203, 30, 300, 600, 600, 700,   1,    30,     1,   3,   1    //
@@ -70,19 +71,22 @@ startup_chkimgx() //CHKIMGX関数開始
 	//==================================================================================
 	//その他共通
 	//==================================================================================
-		path_friend          = image_path + "friend.BMP"
-		path_use             = image_path + "use.BMP"
-		path_one_more        = image_path + "one_more.BMP"
-		path_classup         = image_path + "classup.BMP"
-		path_close           = image_path + "close.BMP"
+		p_friend          = image_path + "friend.BMP"
+		p_use             = image_path + "use.BMP"
+		p_one_more        = image_path + "one_more.BMP"
+		p_classup         = image_path + "classup.BMP"
+		p_close           = image_path + "close.BMP"
+//		p_update_window      = image_path + "update_window.BMP"
+
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             ="メッセージ",            path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-		dim friend[]         ="Friend選択",            path_friend ,    100,117,   0, 400, 600, 700,   1,    30,     0,   2,   0
-		dim friend2[]        ="Friend選択",            path_friend ,    100,117,   0, 400, 600, 700,   1,    30,     0,   2,   1
-		dim use[]            = "使用する",             path_use,        141, 36, 350, 700, 600, 850,   1,    10,     0,   2,   1
-		dim more[]           ="もう一度",              path_one_more ,  199, 35,   0, 550, 650, 700,   1,    30,     0,   1,   1
-		dim classup[]        = "Classup",              path_classup,    120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
-		dim close_btn[]      = "close",                path_close,      120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
+		dim friend[]         ="Friend選択",            p_friend ,       100,117,   0, 400, 600, 700,   1,    30,     0,   2,   0
+		dim friend2[]        ="Friend選択",            p_friend ,       100,117,   0, 400, 600, 700,   1,    30,     0,   2,   1
+		dim use[]            = "使用する",             p_use,           141, 36, 350, 700, 600, 850,   1,    10,     0,   2,   1
+		dim more[]           ="もう一度",              p_one_more ,     199, 35,   0, 550, 650, 700,   1,    30,     0,   1,   1
+		dim classup[]        = "Classup",              p_classup,       120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
+		dim close_btn[]      = "close",                p_close,         120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
+//		dim update_w[]       = "更新ボタンを押します", p_update_window, 120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
 
 
 	//==================================================================================
@@ -155,20 +159,24 @@ startup_chkimgx() //CHKIMGX関数開始
 //		dim ex_tar_ex_btn[]  = "EXを選択",             path_ev_tar_ex,  130,180,   0, 550, 650, 850, 1, 20, 1,  2,1
 
 
+
+
+
+
 dim s_time[] = 0,0
 dim e_time = 0
-COUNTER = READ_INI("肉","カウンター","土古戦場.ini")
+
+COUNTER = READ_INI("95HELL","カウンター","土古戦場.ini")
 COUNT = 0
 ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
 
 //main
 PRINT "実行開始"
 
-	WHILE TRUE	//永久に実行
+	REPEAT	//escを押すか、エラーが発生するまでループ
 
 	s_time[0] = s_time[1]
 	s_time[1] = GETTIME()
-
 
 //------------------------------------------------------
 	//APが不足していないかのチェック
@@ -176,30 +184,40 @@ PRINT "実行開始"
 		RC = APandFRIEND(use,friend,ok_1,ok_2)
 		IFB RC = 99
 			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
-			WRITEINI("肉","カウンター",COUNTER, "土古戦場.ini")
+			WRITEINI("95HELL","カウンター",COUNTER, "土古戦場.ini")
 			EXITEXIT
 		ENDIF
 
 //------------------------------------------------------
 
-	//auto(FULL)の確認を探してクリックする
-		RC = BATTLE_EX_pls(full)
+
+	//戦闘関係
+		RC =  BATTLE_HELL_95(full)
 
 		IFB RC = 0
 			PRINT "SLEEP時間に移行"
-
-	//前回の周回時間を記録
 			time = e_time - s_time[0]
+	//前回の周回時間を記録
 			FNAME = "log.txt"
 			Fid = FOPEN(FNAME,F_READ or F_WRITE) 
 			FPUT(Fid,COUNTER + "<#TAB>"+ time,0,1) 
 			FCLOSE(Fid,TRUE) 
+			WRITEINI("95HELL","カウンター",COUNTER, "土古戦場.ini")
 
-			WHILE CHECK_BUTONN(ok_4) <> 0
-				SLEEP(1)
+	//戦闘終了するまで待機
+			i = 0
+			WHILE CHECK_BUTONN(ok_3) <> 0
+				i = i + 1
+				IFB i = 10
+					i = 0
+					ERROR_Pattern1("戦闘でフリーズ","戦闘時間が10分を超えています。画面を更新します")
+//					RC = PUSH_BUTTON(update_window)
+					EXIT
+				ENDIF
 			WEND
 			SLEEP(0.3)
 		ENDIF		
+
 
 //-------------------------------------------------------
 //戦闘後
@@ -207,22 +225,18 @@ PRINT "実行開始"
 	//戦闘後の処理を集約
 		AFTER_PTN1(ok_3,ok_4,more,close_btn)
 
-	//一定回数で休憩を入れる
-		IFB (COUNTER = 60) OR (COUNTER = 94) OR (COUNTER = 166)
-			j = 300 + RANDOM(COUNTER)
-			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + j + " 秒のSLEEP中です。")
-			SLEEP(j)
-		ENDIF
+		ERROR_Pattern3("周回数の報告",COUNTER + " 周しています。")
+
 
 
 		COUNTER = COUNTER + 1
 		PRINT "============================"
 		PRINT COUNTER + "週目の処理です"
 		PRINT "============================"
+
 		e_time = GETTIME()
 
-	WEND
-PRINT "実行完了"
-WRITEINI("肉","カウンター",COUNTER, "土古戦場.ini")
+until GetKeyState(VK_ESC)　//エスケープキーが押されたら終了
 
+PRINT "実行完了"
 

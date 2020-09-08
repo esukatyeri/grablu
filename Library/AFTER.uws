@@ -93,7 +93,7 @@ i = 0
 		RESULT = 0
 FEND
 
-FUNCTION AFTER_PTN2(ok_1[],ok_2[],more[],close_btn[],reward,2top,multi,level)
+FUNCTION AFTER_PTN2(ok_1[],ok_2[],more[],close_btn[],reward[],2top[],multi[],level[])
 //ok_1	:戦闘直後のOKの判定用
 //ok_2	:ok_1以外のOK判定用、もしくはok_1の周回用
 //more	:もう一度 の判定用　周回する場合は基本的にこれを使う
@@ -191,12 +191,12 @@ i = 0
 		IFB CHECK_BUTONN(reward) = 0
 
 		//Rewardの取得
-			RC = BUTTON(reward)
+			RC = PUSH_BUTTON(reward)
 
 
 		WHILE i < 5
 			i = i + 1
-			RC = BUTTON(ok_2)
+			RC = PUSH_BUTTON(ok_2)
 			
 			IFB RC = 0
 				BREAK
@@ -209,17 +209,14 @@ i = 0
 			
 		WHILE i < 5
 			i = i + 1	
-				RC = BUTTON(ok_2)
+				RC = PUSH_BUTTON(ok_2)
 				IFB RC = 0
 					BREAK
 				ENDIF
-				ERROR_Pattern3("2top","TOP画面へ移動できません")
-
-
-
-				SLEEP(0.1)
+		//CLASSUP対策
+				BTN(LEFT,CLICK)
 				i = i + 1
-			WEND
+		WEND
 
 			IFB RC = 99
 				ERROR_Pattern4
@@ -228,7 +225,7 @@ i = 0
 
 
 	//イベントTOPへ移動
-			RC = BUTTON(2top)
+			RC = PUSH_BUTTON(2top)
 			IFB RC = 99
 				RESLUT = 99
 				ERROR_Pattern3("2top","TOP画面へ遷移できません")				
@@ -236,7 +233,7 @@ i = 0
 			ENDIF
 
 	//イベントのマルチバトル　を探してクリックする
-			RC = BUTTON(multi)
+			RC = PUSH_BUTTON(multi)
 			IFB RC = 99
 				RESLUT = 99
 				ERROR_Pattern3("multi","multi戦闘を選択できません")				
@@ -244,7 +241,7 @@ i = 0
 			ENDIF
 
 	//マルチバトルの難易度選択　を探してクリックする
-			RC = BUTTON(level)
+			RC = PUSH_BUTTON(level)
 			IFB RC = 99
 				RESLUT = 99
 				ERROR_Pattern3("level","難易度選択が出来ません")				

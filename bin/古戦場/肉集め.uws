@@ -207,13 +207,6 @@ PRINT "実行開始"
 	//戦闘後の処理を集約
 		AFTER_PTN1(ok_3,ok_4,more,close_btn)
 
-	//一定回数で休憩を入れる
-		IFB (COUNTER = 60) OR (COUNTER = 94) OR (COUNTER = 166)
-			j = 300 + RANDOM(COUNTER)
-			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + j + " 秒のSLEEP中です。")
-			SLEEP(j)
-		ENDIF
-
 
 		COUNTER = COUNTER + 1
 		PRINT "============================"

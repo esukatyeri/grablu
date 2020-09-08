@@ -109,15 +109,15 @@ startup_chkimgx() //CHKIMGX関数開始
 	//イベント共通
 	//==============================================================================
 		p_reward             = image_path + "reward.BMP"
-		p_2top_ev            = image_path + "2top_ev.BMP"
-		p_2top_extr          = image_path + "2top_extr.BMP"
+		p_2top_ev            = image_path + "2ev_top.BMP"
+		p_2top_extr          = image_path + "2ev_top.BMP"
 			
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             = "メッセージ",           path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-//		dim reward[]         = "報酬を獲得",           p_reward,        210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1
+		dim reward[]         = "報酬を獲得",           p_reward,        210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1
 
 //設定値未修整
-//		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //イベントTOP画面へ
+		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 200, 590, 460, 660,   1,    15,     0,   2,   1    //イベントTOP画面へ
 //		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
 //		dim multi[]          = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
 
@@ -140,15 +140,14 @@ startup_chkimgx() //CHKIMGX関数開始
 	//ストーリー
 	//==============================================================================
 	
-	
-//		p_extr_trg_vh        = image_path + "trg_vh.BMP"
-//		p_extr_trg_ex        = image_path + "trg_ex.BMP"
-//		p_extr_trg_exp       = image_path + "trg_expls.BMP"
+		p_multi              = image_path + "multi.BMP"
+		p_level              = image_path + "level.BMP"
 
 
-//		dim extr_trg_vh[]    = "VH難易度選択",         p_extr_trg_vh,   210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
-//		dim extr_trg_ex[]    = "EX難易度選択",         p_extr_trg_ex,   210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
-//		dim extr_trg_exp[]   = "EX+難易度選択",        p_extr_trg_exp,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
+		dim stry_multi[]     = "multi選択",            p_multi      ,   500,110,  38, 818, 200, 860,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
+		dim stry_lev_vh[]    = "VH難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
+		dim stry_lev_ex[]    = "EX難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   2,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
+//		dim stry_lev_hl[]    = "EX+難易度選択",        p_level      ,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
 
 //		dim ex_tar_vh_btn[]  = "VHを選択",             path_ev_tar_vh,  136,184,   0, 550, 650, 850, 1, 20, 1,  2,1
 //		dim ex_tar_hl_btn[]  = "HLを選択",             path_ev_tar_hl,  137,187,   0, 550, 650, 850, 1, 20, 1,  2,1
@@ -164,65 +163,5 @@ ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1
 //main
 PRINT "実行開始"
 
-	WHILE TRUE	//永久に実行
-
-	s_time[0] = s_time[1]
-	s_time[1] = GETTIME()
-
-
-//------------------------------------------------------
-	//APが不足していないかのチェック
-	//フレンドを探してクリックする
-		RC = APandFRIEND(use,friend,ok_1,ok_2)
-		IFB RC = 99
-			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
-			WRITEINI("肉","カウンター",COUNTER, "土古戦場.ini")
-			EXITEXIT
-		ENDIF
-
-//------------------------------------------------------
-
-	//auto(FULL)の確認を探してクリックする
-		RC = BATTLE_EX_pls(full)
-
-		IFB RC = 0
-			PRINT "SLEEP時間に移行"
-
-	//前回の周回時間を記録
-			time = e_time - s_time[0]
-			FNAME = "log.txt"
-			Fid = FOPEN(FNAME,F_READ or F_WRITE) 
-			FPUT(Fid,COUNTER + "<#TAB>"+ time,0,1) 
-			FCLOSE(Fid,TRUE) 
-
-			WHILE CHECK_BUTONN(ok_4) <> 0
-				SLEEP(1)
-			WEND
-			SLEEP(0.3)
-		ENDIF		
-
-//-------------------------------------------------------
-//戦闘後
-
-	//戦闘後の処理を集約
-		AFTER_PTN1(ok_3,ok_4,more,close_btn)
-
-	//一定回数で休憩を入れる
-		IFB (COUNTER = 60) OR (COUNTER = 94) OR (COUNTER = 166)
-			j = 300 + RANDOM(COUNTER)
-			ERROR_Pattern1("周回数の報告",COUNTER + " 周しています。現在 " + j + " 秒のSLEEP中です。")
-			SLEEP(j)
-		ENDIF
-
-
-		COUNTER = COUNTER + 1
-		PRINT "============================"
-		PRINT COUNTER + "週目の処理です"
-		PRINT "============================"
-		e_time = GETTIME()
-
-	WEND
-PRINT "実行完了"
-WRITEINI("肉","カウンター",COUNTER, "土古戦場.ini")
-
+	PUSH_BUTTON(stry_lev_vh)
 
