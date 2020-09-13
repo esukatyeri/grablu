@@ -206,7 +206,7 @@ PRINT "実行開始"
 	//メール連絡をして処理を強制終了
 		IFB RC = 99
 			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
-			WRITEINI(base[0],base[2],COUNTER, baase[1])
+			WRITEINI(base[0],base[2],COUNTER, base[1])
 			EXITEXIT
 		ENDIF
 
