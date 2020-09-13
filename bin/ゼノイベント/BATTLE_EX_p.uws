@@ -1,14 +1,13 @@
-FUNCTION BATTLE_HELL_95(FULL[])
+FUNCTION BATTLE_EX_pls(FULL[])
 
-//戦闘画面用の関数w
+//戦闘画面用の関数
 //引数の説明
 //FULL[]：AUTO（FULL）のボタンの設定値
 //STIME ：戦闘にかかる時間、SLEEPの時間
-i = 0
-j = 0
+
+
 //救援の処理（未実装）
 
-//	HELPME(KYUEN[],CALL[],OK[])
 
 
 //AUTO（FULL）の処理
