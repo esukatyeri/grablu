@@ -2,7 +2,7 @@ FUNCTION AFTER_OK(ok_2[],close_btn[])
 
 	//OKを探してクリックする
 		i = 0
-		WHILE i < 5
+		WHILE i < 3
 			i = i + 1
 			RC = PUSH_BUTTON(ok_2)
 			IFB RC = 0
@@ -21,8 +21,12 @@ FUNCTION AFTER_OK(ok_2[],close_btn[])
 		//エラー時の報告
 			IFB i = 3
 				ERROR_Pattern3("OK","戦闘後のOKボタンが見つかりません")
+				RESULT = 99
+				EXIT
 			ENDIF
 		WEND
+		RESULT = 0
+
 FEND
 
 FUNCTION AFTER_PTN1(ok_1[],ok_2[],more[],close_btn[])
