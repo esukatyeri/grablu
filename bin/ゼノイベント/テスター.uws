@@ -122,7 +122,7 @@ startup_chkimgx() //CHKIMGX関数開始
 
 //設定値未修整
 		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 200, 590, 460, 660,   1,    15,     0,   2,   1    //イベントTOP画面へ
-		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
+		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 200, 590, 460, 660,   1,    15,     0,   1,   1    //エクストラTOP画面へ
 //		dim multi[]          = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
 
 
@@ -190,6 +190,8 @@ startup_chkimgx() //CHKIMGX関数開始
 	PRINT base[0] + " 難易度" + base[2] + " 実行開始"
 	COUNTER = READ_INI(base[0],base[2], base[1])
 	ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
+	
+			RC = PUSH_BUTTON(2top_extr)
 			RC = PUSH_BUTTON(zeno_quest)
 			RC = PUSH_BUTTON(stry_lev)
 

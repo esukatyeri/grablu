@@ -122,7 +122,7 @@ startup_chkimgx() //CHKIMGX関数開始
 
 //設定値未修整
 		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 200, 590, 460, 660,   1,    15,     0,   2,   1    //イベントTOP画面へ
-		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
+		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 200, 590, 460, 660,   1,    15,     0,   1,   1    //エクストラTOP画面へ
 //		dim multi[]          = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
 
 
@@ -249,7 +249,7 @@ startup_chkimgx() //CHKIMGX関数開始
 				AFTER_PTN2(ok_3,ok_4,more,close_btn,reward,2top_ev,stry_multi,stry_lev)
 
 			case 3
-				AFTER_PTN3(ok_3,ok_4,more,close_btn,reward,2top_ev,zeno_quest,stry_lev)
+				AFTER_PTN3(ok_3,ok_4,more,close_btn,reward,2top_extr,zeno_quest,stry_lev)
 			
 			DEFAULT
 				PRINT "設定値がありません"
@@ -267,10 +267,6 @@ startup_chkimgx() //CHKIMGX関数開始
 		PRINT ""
 		e_time = GETTIME()
 
-ifb COUNTER > 30
-WRITEINI(base[0],base[2],COUNTER, base[1])
-	exitexit
-endif
 until GetKeyState(VK_ESC)　//エスケープキーが押されていたら終了
 //=======================================================================================================================↑↑↑
 
