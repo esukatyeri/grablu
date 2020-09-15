@@ -122,7 +122,7 @@ startup_chkimgx() //CHKIMGX関数開始
 
 //設定値未修整
 		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 200, 590, 460, 660,   1,    15,     0,   2,   1    //イベントTOP画面へ
-		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
+		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 200, 590, 460, 660,   1,    15,     0,   1,   1    //エクストラTOP画面へ
 //		dim multi[]          = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
 
 
@@ -161,8 +161,8 @@ startup_chkimgx() //CHKIMGX関数開始
 		p_xeno_level         = image_path + "xeno_level.BMP"
 
 
-		dim zeno_quest[]     = "ゼノクエスト選択",     p_xeno_quest  ,   500,110,  38, 818, 200, 860,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
-		dim zeno_lev_ex[]    = "EX難易度選択",         p_xeno_level  ,   130,180,  70, 585, 560, 625,   2,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
+		dim zeno_quest[]     = "ゼノクエスト選択",     p_xeno_quest  ,   119, 30, 440, 680, 620, 730,   1,    15,     0,   1,   1    //エキストラバトルの難易度VH選択
+		dim zeno_lev_ex[]    = "EX難易度選択",         p_xeno_level  ,    52, 43, 500, 460, 580, 540,   1,    15,     0,   1,   1    //エキストラバトルの難易度EX選択
 
 
 	//==============================================================================
@@ -210,7 +210,7 @@ startup_chkimgx() //CHKIMGX関数開始
 	//メール連絡をして処理を強制終了
 		IFB RC = 99
 			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
-			WRITEINI(base[0],base[2],COUNTER, baase[1])
+			WRITEINI(base[0],base[2],COUNTER, base[1])
 			EXITEXIT
 		ENDIF
 
@@ -219,7 +219,7 @@ startup_chkimgx() //CHKIMGX関数開始
 	//=================================================
 
 	//auto(FULL)の確認を探してクリックする
-//		RC = BATTLE_EX_pls(full)
+		RC = BATTLE_EX_pls(full)
 		WRITEINI(base[0],base[2],COUNTER, base[1])
 
 		IFB RC = 0
@@ -249,7 +249,7 @@ startup_chkimgx() //CHKIMGX関数開始
 				AFTER_PTN2(ok_3,ok_4,more,close_btn,reward,2top_ev,stry_multi,stry_lev)
 
 			case 3
-				AFTER_PTN3(ok_3,ok_4,more,close_btn,reward,2top_ev,zeno_quest,stry_lev)
+				AFTER_PTN3(ok_3,ok_4,more,close_btn,reward,2top_extr,zeno_quest,stry_lev)
 			
 			DEFAULT
 				PRINT "設定値がありません"
@@ -266,7 +266,6 @@ startup_chkimgx() //CHKIMGX関数開始
 		PRINT "============================"
 		PRINT ""
 		e_time = GETTIME()
-
 
 until GetKeyState(VK_ESC)　//エスケープキーが押されていたら終了
 //=======================================================================================================================↑↑↑

@@ -4,6 +4,10 @@ path = "C:\github\grablu"
 path_Lib = path + 
 image_path = path + "\picture\"
 
+//オプション設定
+OPTION LOGPATH= "C:\github\grablu\bin\ゼノイベント\実行ログ.txt"
+OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
+
 //ライブラリ呼び出し
 CALL BATTLE_EX_p.uws        			        //
 CALL ChkImgX.uws								//CHKIMGX関数を別ファイルから呼び出しておく。
@@ -34,7 +38,7 @@ startup_chkimgx() //CHKIMGX関数開始
 //range（x2,y2）  ：画像検索を行う範囲の左上の座標
 //range(x3,y3）   ：画像検索を行う範囲の右下の座標
 //trg num         ：検索範囲に存在する複数対象のうち、何個目の座標かを指定（1:左上から1つ目の対象、2:左上から2つ目の対象）
-//loop cnt        ：画像検索を行う回数（10：10回検索を行い、見つからなければ諦める。検索の間は0.1秒空く）
+//loop cnt        ：画像検索を行う回数（10：10回検索を行い、見つからなければ諦める。検索の間は0.1秒空く）≒画像が出てくるまでの待機時間
 //sleep(min,max） ：画像をクリックした後にスリープを行う最小秒数と最大秒数を指定。（実際は最小秒数と最大秒数の合間のランダムな時間）
 //                 スリープは0を指定しても、最低1秒実施される。そのため、1秒+何秒スリープを実施するかを指定することになる。
 //check flg       ：ボタンをクリックした後、画像を再検索して画面上に画像がないことを確認する。
@@ -54,7 +58,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		p_ok2                = image_path + "ok2.BMP"    //半汁選択後のOKボタン
 		p_ok3                = image_path + "ok3.BMP"    //戦闘終了後のOKボタン
 
-		
+
 	  //                                                       |  size  |       range       | trg|  loop|    sleep  | check| 補足
 	  //dim _btn             = "メッセージ",   p_image,        |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
 		dim ok_[]            = "ok",            p_ok,            200, 35, 150, 650, 500, 800,   1,    30,     1,   3,   1    //未使用
@@ -95,7 +99,7 @@ startup_chkimgx() //CHKIMGX関数開始
 
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             ="メッセージ",            p_image,       |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-		dim full[]           ="full ボタン",           p_full,           93, 22,   0, 550, 150, 650,   1,    80,     1,  10,   1
+		dim full[]           ="full ボタン",           p_full,           93, 22,   0, 550, 150, 650,   1,    80,     0,   1,   1
 		dim kyuen_b[]        ="救援",                  p_kyuen,         219, 22,   0, 750, 300, 800,   1,    15,     0,   1,   1
 		dim call_kyuen[]     ="救援依頼",              p_call_kyuen,    167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
 		dim attack[]         ="攻撃ボタン",            p_attack,        167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
@@ -110,15 +114,15 @@ startup_chkimgx() //CHKIMGX関数開始
 	//==============================================================================
 		p_reward             = image_path + "reward.BMP"
 		p_2top_ev            = image_path + "2ev_top.BMP"
-		p_2top_extr          = image_path + "2ev_top.BMP"
-			
+		p_2top_extr          = image_path + "2extr.BMP"
+		
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             = "メッセージ",           path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
 		dim reward[]         = "報酬を獲得",           p_reward,        210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1
 
 //設定値未修整
 		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 200, 590, 460, 660,   1,    15,     0,   2,   1    //イベントTOP画面へ
-//		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
+		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 200, 590, 460, 660,   1,    15,     0,   1,   1    //エクストラTOP画面へ
 //		dim multi[]          = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
 
 
@@ -144,34 +148,51 @@ startup_chkimgx() //CHKIMGX関数開始
 		p_level              = image_path + "level.BMP"
 
 
-
 		dim stry_multi[]     = "multi選択",            p_multi      ,   500,110,  38, 818, 200, 860,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
 		dim stry_lev_vh[]    = "VH難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
 		dim stry_lev_ex[]    = "EX難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   2,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
-//		dim stry_lev_hl[]    = "EX+難易度選択",        p_level      ,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
+//		dim stry_lev_hl[]    = "EX+難易度選択",        p_level      ,   210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
+
+	//==============================================================================
+	//ゼノイベント
+	//==============================================================================
+	
+		p_xeno_quest         = image_path + "xeno_quest.BMP"
+		p_xeno_level         = image_path + "xeno_level.BMP"
+
+
+		dim zeno_quest[]     = "ゼノクエスト選択",     p_xeno_quest  ,   119, 30, 440, 680, 620, 730,   1,    15,     0,   1,   1    //エキストラバトルの難易度VH選択
+		dim zeno_lev_ex[]    = "EX難易度選択",         p_xeno_level  ,    52, 43, 500, 460, 580, 540,   1,    15,     0,   1,   1    //エキストラバトルの難易度EX選択
+
 
 	//==============================================================================
 	//調整箇所（イベント、難易度毎に設定の変更が必要）
 	//==============================================================================
 	
 		//変数名			イベント名,		周回数記録ファイル,		難易度,		戦闘後の処理種別,
-		dim base[]           = 	  "ロミオ", 		"イベント.ini",			"VH",			   1
+		dim base[]           = 	  "ゼノサジタリウス", 		"イベント.ini",			"EX",			   3
 
-		dim stry_lev 		 = 	SLICE(stry_lev_vh)    //使用する難易度の配列を入れる
-
-		//オプション設定
-		OPTION LOGPATH= "C:\github\grablu\log\base[0].txt"
-		OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
-
+//ストーリーイベントのみ設定
+		dim stry_lev 		 = 	SLICE(zeno_lev_ex)    //使用する難易度の配列を入れる
 
 
 //======================================================================================
 //変数設定完了 
 //======================================================================================
 
-COUNT = 0
 
+
+
+//=================================================
 //main
+//=================================================
+	PRINT "<#CR><#CR><#CR>"
 	PRINT base[0] + " 難易度" + base[2] + " 実行開始"
+	COUNTER = READ_INI(base[0],base[2], base[1])
+	ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
+	
+			RC = PUSH_BUTTON(2top_extr)
+			RC = PUSH_BUTTON(zeno_quest)
+			RC = PUSH_BUTTON(stry_lev)
 
-			PRINT "SLEEP時間に移行"
+
