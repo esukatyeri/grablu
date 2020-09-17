@@ -1,4 +1,4 @@
-FUNCTION BATTLE_EX_pls(FULL[])
+FUNCTION BATTLE_EX_pls(FULL[],ATTACK[])
 
 //戦闘画面用の関数
 //引数の説明
@@ -10,7 +10,33 @@ FUNCTION BATTLE_EX_pls(FULL[])
 
 
 
-//AUTO（FULL）の処理
+//ATTACKの処理
+
+	COUNT = 0
+	RC = PUSH_BUTTON(ATTACK)
+	WHILE ( RC = 99 )		//正常終了するか、5回失敗したときのみ抜ける
+		
+		RC = PUSH_BUTTON(ATTACK)
+		IFB RC = 0
+			BREAK
+		ENDIF
+
+
+//↓↓↓↓↓↓↓エラーハンドリング↓↓↓↓↓↓↓↓↓
+	//FULLボタンがなかった場合の処理
+		BEEP
+
+	//3回失敗したときはスキップ
+		IFB COUNT = 3
+			ERROR_Pattern3("自動戦闘に失敗","攻撃ボタンが見つかりませんでした")
+			BREAK
+		ENDIF
+//↑↑↑↑↑↑↑エラーハンドリング↑↑↑↑↑↑↑↑↑
+
+		COUNT = COUNT + 1
+	WEND
+
+//AUTO（auto）の処理
 
 	COUNT = 0
 	RC = PUSH_BUTTON(FULL)
@@ -35,6 +61,7 @@ FUNCTION BATTLE_EX_pls(FULL[])
 
 		COUNT = COUNT + 1
 	WEND
+
 
 	
 	RESULT = RC
