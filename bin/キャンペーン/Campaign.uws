@@ -95,14 +95,15 @@ startup_chkimgx() //CHKIMGX関数開始
 		p_full               = image_path + "full_b.BMP"
 		p_kyuen              = image_path + "kyuen.BMP"
 		p_call_kyuen         = image_path + "call_kyuen.BMP"
-		p_attack             = image_path + ""
-
+		p_attack             = image_path + "attack.BMP"
+		p_auto               = image_path + "auto.BMP"
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             ="メッセージ",            p_image,       |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
 		dim full[]           ="full ボタン",           p_full,           93, 22,   0, 550, 150, 650,   1,    80,     0,   1,   1
 		dim kyuen_b[]        ="救援",                  p_kyuen,         219, 22,   0, 750, 300, 800,   1,    15,     0,   1,   1
 		dim call_kyuen[]     ="救援依頼",              p_call_kyuen,    167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
-		dim attack[]         ="攻撃ボタン",            p_attack,        167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
+		dim attack[]         ="攻撃ボタン",            p_attack,        177, 60, 400, 500, 600, 585,   1,    80,     0,   1,   1
+		dim auto[]           ="AUTOボタン",            p_auto,           93, 22,  10, 560, 150, 650,   1,    10,     0,   1,   1
 
 
 //==================================================================================
@@ -172,7 +173,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		dim base[]           = 	  "キャンペーン", 		"イベント.ini",			"キャンペーン",			   4
 
 //ストーリーイベントのみ設定
-//		dim stry_lev 		 = 	SLICE(stry_lev_vh)    //使用する難易度の配列を入れる
+		dim stry_lev 		 = 	SLICE(stry_lev_vh)    //使用する難易度の配列を入れる
 
 
 //======================================================================================
@@ -218,7 +219,7 @@ startup_chkimgx() //CHKIMGX関数開始
 	//=================================================
 
 	//auto(FULL)の確認を探してクリックする
-//		RC = BATTLE_EX_pls(full)
+		RC = BATTLE_EX_pls(auto,attack)
 		WRITEINI(base[0],base[2],COUNTER, base[1])
 
 		IFB RC = 0
