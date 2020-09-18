@@ -46,7 +46,7 @@ FUNCTION APandFRIEND(USE[],FRIEND[],OK1[],OK2[])
 			ENDIF
 			IFB COUNT > 15
 				shutdown_chkimgx()
-				RC = 99
+				RESULT = 99
 				EXIT
 			ENDIF
 			
