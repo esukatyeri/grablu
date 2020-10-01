@@ -481,7 +481,7 @@ i = 0
 		AFTER_MORE(ok_2,close_btn,more)
 
 	//èÃçÜÇÃämîFâÊñ 
-//		RC = PUSH_BUTTON(close_btn)
+		RC = PUSH_BUTTON(close_btn)
 
 
 		RESULT = 0

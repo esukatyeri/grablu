@@ -9,7 +9,7 @@ FUNCTION READ_INI(section,key,path)
 		PRINT RESULT
 	ELSE
 		WRITEINI(section,key,0,path)
-		RESULT = 0
+		RESULT = 1
 	ENDIF
 
 FEND

@@ -1,0 +1,12 @@
+一定回数ごとにAP消費量が変更され、確認画面が出力される
+
+確認画面出力後は「もう一度」が選択できず、エクストラクエスト画面からやり直し
+
+
+IFB RC = 99
+	RC =  PUSH_BUTTON(2top_extr)
+	RC =  PUSH_BUTTON()
+	RC =  PUSH_BUTTON()
+ENDIF
+
+
