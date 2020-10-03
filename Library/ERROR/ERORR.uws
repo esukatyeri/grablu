@@ -36,3 +36,10 @@ PROCEDURE ERROR_Pattern5
 		RC = SCREENSHOT("ALL")
 		MAIL("エラー報告", "添付ファイルを確認してください", RC)
 FEND
+
+PROCEDURE ERROR_Pattern6(SUBJECT,BODY)
+
+//		BEEP
+//		RC = SCREENSHOT("ACT")
+		MAIL2(SUBJECT, BODY)
+FEND

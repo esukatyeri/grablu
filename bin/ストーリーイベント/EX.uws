@@ -169,7 +169,7 @@ startup_chkimgx() //CHKIMGX関数開始
 	//==============================================================================
 	
 		//変数名			イベント名,		周回数記録ファイル,		難易度,		戦闘後の処理種別,
-		dim base[]           = 	  "ダルモア", 		"イベント.ini",			"VH",			   2
+		dim base[]           = 	  "ダルモア", 		"イベント.ini",			"EX",			   2
 
 //ストーリーイベントのみ設定
 		dim stry_lev 		 = 	SLICE(stry_lev_ex)    //使用する難易度の配列を入れる
@@ -203,7 +203,7 @@ startup_chkimgx() //CHKIMGX関数開始
 	//メール連絡をして処理を強制終了
 		IFB RC = 99
 			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
-			WRITEINI(base[0],base[2],COUNTER, baase[1])
+			WRITEINI(base[0],base[2],COUNTER, base[1])
 			EXITEXIT
 		ENDIF
 
@@ -224,19 +224,21 @@ startup_chkimgx() //CHKIMGX関数開始
 			FPUT(Fid,base[2] + "<#TAB>"+ COUNTER + "<#TAB>"+ time,0,1) 
 			FCLOSE(Fid,TRUE) 
 
+			ERROR_Pattern6("周回数の報告",COUNTER + " 周しています。")
+			COUNTER = COUNTER + 1
+			PRINT ""
+			PRINT "============================"
+			PRINT COUNTER + "週目の処理です"
+			PRINT "============================"
+			PRINT ""
+			WRITEINI(base[0],base[2],COUNTER, base[1])
+
 			WHILE CHECK_BUTONN(ok_4) <> 0
 				SLEEP(1)
 			WEND
 			SLEEP(0.3)
 		ENDIF		
 
-		ERROR_Pattern3("周回数の報告",COUNTER + " 周しています。")
-		COUNTER = COUNTER + 1
-		PRINT ""
-		PRINT "============================"
-		PRINT COUNTER + "週目の処理です"
-		PRINT "============================"
-		PRINT ""
 
 	//=================================================
 	//戦闘後の処理
@@ -247,7 +249,7 @@ startup_chkimgx() //CHKIMGX関数開始
 				AFTER_PTN1(ok_3,ok_4,more,close_btn)
 				
 			case 2
-				AFTER_PTN2(ok_3,ok_4,more,close_btn,reward,2top_ev,stry_multi,stry_lev)
+				AFTER_PTN21(ok_3,ok_4,more,close_btn,reward,2top_ev,stry_multi,stry_lev,base)
 
 			case 3
 				AFTER_PTN3(ok_3,ok_4,more,close_btn,reward,2top_ev,zeno_quest,stry_lev)
@@ -263,6 +265,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		e_time = GETTIME()
 
 
+until GetKeyState(VK_ESC)　//エスケープキーが押されていたら終了
 //=======================================================================================================================↑↑↑
 
 PRINT "実行完了"
