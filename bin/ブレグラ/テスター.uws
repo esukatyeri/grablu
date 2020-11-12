@@ -4,10 +4,6 @@ path = "C:\github\grablu"
 path_Lib = path + 
 image_path = path + "\picture\"
 
-//オプション設定
-OPTION LOGPATH= "C:\github\grablu\bin\ゼノイベント\実行ログ.txt"
-OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
-
 //ライブラリ呼び出し
 CALL BATTLE_EX_p.uws        			        //
 CALL ChkImgX.uws								//CHKIMGX関数を別ファイルから呼び出しておく。
@@ -38,7 +34,7 @@ startup_chkimgx() //CHKIMGX関数開始
 //range（x2,y2）  ：画像検索を行う範囲の左上の座標
 //range(x3,y3）   ：画像検索を行う範囲の右下の座標
 //trg num         ：検索範囲に存在する複数対象のうち、何個目の座標かを指定（1:左上から1つ目の対象、2:左上から2つ目の対象）
-//loop cnt        ：画像検索を行う回数（10：10回検索を行い、見つからなければ諦める。検索の間は0.1秒空く）≒画像が出てくるまでの待機時間
+//loop cnt        ：画像検索を行う回数（10：10回検索を行い、見つからなければ諦める。検索の間は0.1秒空く）
 //sleep(min,max） ：画像をクリックした後にスリープを行う最小秒数と最大秒数を指定。（実際は最小秒数と最大秒数の合間のランダムな時間）
 //                 スリープは0を指定しても、最低1秒実施される。そのため、1秒+何秒スリープを実施するかを指定することになる。
 //check flg       ：ボタンをクリックした後、画像を再検索して画面上に画像がないことを確認する。
@@ -58,7 +54,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		p_ok2                = image_path + "ok2.BMP"    //半汁選択後のOKボタン
 		p_ok3                = image_path + "ok3.BMP"    //戦闘終了後のOKボタン
 
-
+		
 	  //                                                       |  size  |       range       | trg|  loop|    sleep  | check| 補足
 	  //dim _btn             = "メッセージ",   p_image,        |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
 		dim ok_[]            = "ok",            p_ok,            200, 35, 150, 650, 500, 800,   1,    30,     1,   3,   1    //未使用
@@ -79,8 +75,6 @@ startup_chkimgx() //CHKIMGX関数開始
 		path_one_more        = image_path + "one_more.BMP"
 		path_classup         = image_path + "classup.BMP"
 		path_close           = image_path + "close.BMP"
-		path_reload          = image_path + "reload.BMP"
-		
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             ="メッセージ",            path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
 		dim friend[]         ="Friend選択",            path_friend ,    100,117,   0, 400, 600, 700,   1,    30,     0,   2,   0
@@ -89,21 +83,22 @@ startup_chkimgx() //CHKIMGX関数開始
 		dim more[]           ="もう一度",              path_one_more ,  199, 35,   0, 550, 650, 700,   1,    30,     0,   1,   1
 		dim classup[]        = "Classup",              path_classup,    120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
 		dim close_btn[]      = "close",                path_close,      120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
-		dim reload_btn[]     = "reload",               path_reload,      67, 38, 420, 990, 520,1050,   1,     5,     0,   1,   0
+
+
 	//==================================================================================
 	//戦闘画面
 	//==================================================================================
 		p_full               = image_path + "full_b.BMP"
 		p_kyuen              = image_path + "kyuen.BMP"
 		p_call_kyuen         = image_path + "call_kyuen.BMP"
-		p_attack             = image_path + "attack.BMP"
-		
+		p_attack             = image_path + ""
+
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             ="メッセージ",            p_image,       |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-		dim full[]           ="full ボタン",           p_full,           93, 22,   0, 550, 150, 650,   1,    80,     0,   1,   1
+		dim full[]           ="full ボタン",           p_full,           93, 22,   0, 550, 150, 650,   1,    80,     1,  10,   1
 		dim kyuen_b[]        ="救援",                  p_kyuen,         219, 22,   0, 750, 300, 800,   1,    15,     0,   1,   1
 		dim call_kyuen[]     ="救援依頼",              p_call_kyuen,    167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
-		dim attack[]         ="攻撃ボタン",            p_attack,        177, 60, 400, 500, 600, 585,   1,    80,     0,   1,   1
+		dim attack[]         ="攻撃ボタン",            p_attack,        167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
 
 
 //==================================================================================
@@ -115,15 +110,15 @@ startup_chkimgx() //CHKIMGX関数開始
 	//==============================================================================
 		p_reward             = image_path + "reward.BMP"
 		p_2top_ev            = image_path + "2ev_top.BMP"
-		p_2top_extr          = image_path + "2extr.BMP"
-		
+		p_2top_extr          = image_path + "2ev_top.BMP"
+			
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             = "メッセージ",           path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
 		dim reward[]         = "報酬を獲得",           p_reward,        210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1
 
 //設定値未修整
 		dim 2top_ev[]        = "トップ画面へ",         p_2top_ev,       210, 35, 200, 590, 460, 660,   1,    15,     0,   2,   1    //イベントTOP画面へ
-		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
+//		dim 2top_extr[]      = "エキストラTOP画面へ",  p_2top_extr,     210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エクストラTOP画面へ
 //		dim multi[]          = "マルチバトル",         p_multi,         210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //マルチバトル選択
 
 
@@ -149,126 +144,56 @@ startup_chkimgx() //CHKIMGX関数開始
 		p_level              = image_path + "level.BMP"
 
 
+
 		dim stry_multi[]     = "multi選択",            p_multi      ,   500,110,  38, 818, 200, 860,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
 		dim stry_lev_vh[]    = "VH難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
 		dim stry_lev_ex[]    = "EX難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   2,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
-//		dim stry_lev_hl[]    = "EX+難易度選択",        p_level      ,   210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
+//		dim stry_lev_hl[]    = "EX+難易度選択",        p_level      ,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
 
 	//==============================================================================
-	//ゼノイベント
+	//ブレグラ
 	//==============================================================================
 	
-		p_xeno_quest         = image_path + "xeno_quest.BMP"
-		p_xeno_level         = image_path + "xeno_level.BMP"
+		b_charange           = image_path + "b_charange.BMP"
+		b_next               = image_path + "next.BMP"
+		
 
 
-		dim zeno_quest[]     = "ゼノクエスト選択",     p_xeno_quest  ,   119, 30, 440, 680, 620, 730,   1,    15,     0,   1,   1    //エキストラバトルの難易度VH選択
-		dim zeno_lev_ex[]    = "EX難易度選択",         p_xeno_level  ,    52, 43, 500, 460, 580, 540,   1,    15,     0,   1,   1    //エキストラバトルの難易度EX選択
+		dim bg_ch[]          = "挑戦選択",             b_charange   ,   165, 61, 390, 555, 590, 640,   1,    15,     0,   2,   1    //ブレグラの2戦目以降の選択
+		dim bg_more[]        = "もう一度選択",         path_one_more,   199, 35,  65, 895, 310, 955,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
+		dim bg_next[]        = "続けて挑戦",           b_next       ,   199, 35,  50, 590, 310, 650,   1,    15,     0,   2,   1    //エキストラバトルの難易度VH選択
+		dim ok_bg_fl[]       = "ok",                           p_ok3,   203, 30, 350, 600, 600, 660,   1,     5,     0,   1,   1    //
+		dim ok_bg[]          = "ok",                           p_ok3,   203, 30, 350, 660, 590, 730,   1,     5,     0,   1,   1    //
+		
+
+//		dim stry_lev_ex[]    = "EX難易度選択",         p_level      ,   130,180,  70, 585, 560, 625,   2,    15,     0,   2,   1    //エキストラバトルの難易度EX選択
+//		dim stry_lev_hl[]    = "EX+難易度選択",        p_level      ,  210, 35, 300, 800, 650, 950,   1,    15,     0,   2,   1    //エキストラバトルの難易度EX+選択
+
 
 	//==============================================================================
 	//調整箇所（イベント、難易度毎に設定の変更が必要）
 	//==============================================================================
 	
-		//変数名			イベント名,		周回数記録ファイル,		難易度,		戦闘後の処理種別,更新ボタンまでのスリープ時間
-		dim base[]           = "アルケミスト", 		"イベント.ini",			"EX",			   2,	20
+		//変数名			イベント名,		周回数記録ファイル,		難易度,		戦闘後の処理種別,
+		dim base[]           = 	  "ロミオ", 		"イベント.ini",			"VH",			   1
 
-//ストーリーイベントのみ設定
-		dim stry_lev 		 = 	SLICE(stry_lev_ex)    //使用する難易度の配列を入れる
+		dim stry_lev 		 = 	SLICE(stry_lev_vh)    //使用する難易度の配列を入れる
+
+		//オプション設定
+		OPTION LOGPATH= "C:\github\grablu\log\base[0].txt"
+		OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
 
 
 
-
-//=================================================
-//main
-//=================================================
-	PRINT "<#CR><#CR><#CR>"
-	PRINT base[0] + " 難易度" + base[2] + " 実行開始"
-	COUNTER = READ_INI(base[0],base[2], base[1])
+//======================================================================================
+//変数設定完了 
+//======================================================================================
 	ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
+COUNT = 0
 
-//=======================================================================================================================↓↓↓
-	REPEAT	//escを押すか、エラーが発生するまでループ
-
-	//=================================================
-	//戦闘前の処理
-	//=================================================
-	//開始時間の記録
-		s_time[0] = s_time[1]
-		s_time[1] = GETTIME()
-
-	//APが不足していないかのチェック
-	//フレンドを探してクリックする
-		RC = APandFRIEND(use,friend,ok_1,ok_2)
-		
-	//フレンド選択画面でエラーになった場合、高確率で認証が出ているので、
-	//メール連絡をして処理を強制終了
-		IFB RC = 99
-			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
-			WRITEINI(base[0],base[2],COUNTER, base[1])
-			EXITEXIT
-		ENDIF
-
-	//=================================================
-	//戦闘の処理
-	//=================================================
-
-	//auto(FULL)の確認を探してクリックする
-		RC = BATTLE_EX_pls(full,reload_btn,attack,base[4],ok_4)
-		WRITEINI(base[0],base[2],COUNTER, base[1])
-
-		IFB RC = 0
-			PRINT "SLEEP時間に移行"
-
-	//前回の周回時間を記録
-			time = e_time - s_time[0]
-			Fid = FOPEN(time_file,F_READ or F_WRITE) 
-			FPUT(Fid,base[2] + "<#TAB>"+ COUNTER + "<#TAB>"+ time,0,1) 
-			FCLOSE(Fid,TRUE) 
-
-			ERROR_Pattern6("周回数の報告",COUNTER + " 周しています。")
-			COUNTER = COUNTER + 1
-			PRINT ""
-			PRINT "============================"
-			PRINT COUNTER + "週目の処理です"
-			PRINT "============================"
-			PRINT ""
-			WRITEINI(base[0],base[2],COUNTER, base[1])
-
-//			WHILE CHECK_BUTONN(ok_4) <> 0
-//				SLEEP(1)
-//			WEND
-//			SLEEP(0.3)
-		ENDIF		
-
-
-	//=================================================
-	//戦闘後の処理
-	//=================================================
-
-		SELECT base[3]
-			case 1
-				AFTER_PTN1(ok_3,ok_4,more,close_btn)
-				
-			case 2
-				AFTER_PTN21(ok_3,ok_4,more,close_btn,reward,2top_ev,stry_multi,stry_lev,base)
-
-			case 3
-				AFTER_PTN3(ok_3,ok_4,more,close_btn,reward,2top_ev,zeno_quest,stry_lev)
-
-			
-			DEFAULT
-				PRINT "設定値がありません"
-				PRINT "設定値=" + base[3]
-
-		SELEND
-
-
-		e_time = GETTIME()
-
-
-until GetKeyState(VK_ESC)　//エスケープキーが押されていたら終了
-//=======================================================================================================================↑↑↑
-
-PRINT "実行完了"
-WRITEINI(base[0],base[2],COUNTER, base[1])
-
+//main
+//		AFTER_OK(ok_4,close_btn)
+//		AFTER_MORE(ok_4,close_btn,2top_ev)
+		SLEEP(5)
+//		BTN(LEFT,CLICK)	
+//		AFTER_OK(bg_more,close_btn)

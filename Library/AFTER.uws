@@ -287,7 +287,7 @@ i = 0
 		WEND
 
 	//称号の確認画面
-		RC = PUSH_BUTTON(close_btn)
+//		RC = PUSH_BUTTON(close_btn)
 		
 
 //=======================================================================
@@ -662,3 +662,93 @@ WRITEINI(base[0],"報酬",1, base[1])
 
 		RESULT = 0
 FEND
+
+
+FUNCTION AFTER_PTN5(ok_1[],ok_2[],more[],close_btn[])
+//===========関数の説明=====================================
+//想定処理：ブレグラの戦闘後
+//          経験値獲得のウィンドウから、「もう一度」ボタンをクリックするところまで
+//処理の流れ：経験値獲得→→「もう一度」ボタンを押す。
+//
+//============変数の説明====================================
+//ok_1		:戦闘直後のOKの判定用
+//ok_2		:ok_1以外のOK判定用、もしくはok_1の周回用
+//more		:もう一度 の判定用　周回する場合は基本的にこれを使う
+//close_btn	:称号獲得時等のポップ対策
+
+i = 0
+
+	//OKを探してクリックする
+		AFTER_OK(ok_1,close_btn)
+
+	//もう一度を探してクリックする。
+		AFTER_MORE(ok_2,close_btn,more)
+
+	//称号の確認画面
+		RC = PUSH_BUTTON(close_btn)
+
+	//OKを探してクリックする
+		AFTER_OK(ok_2,close_btn)
+
+		RESULT = 0
+FEND
+
+
+
+FUNCTION AFTER_PTN6(use[],friend[],ok_1[],ok_2[],ok_3[],ok_4[],more[],close_btn[],charange[],2top_ev[],4sho_ex[],4sho_ex2[],4sho_trg[],kyuen[],c_kyuen[],full[])
+//===========関数の説明=====================================
+//想定処理：四象降臨の戦闘後
+//          経験値獲得のウィンドウから、「もう一度」ボタンをクリックするところまで
+//処理の流れ：経験値獲得→→「もう一度」ボタンを押す。
+//
+//============変数の説明====================================
+//ok_1		:戦闘直後のOKの判定用
+//ok_2		:ok_1以外のOK判定用、もしくはok_1の周回用
+//more		:もう一度 の判定用　周回する場合は基本的にこれを使う
+//close_btn	:称号獲得時等のポップ対策
+
+i = 0
+
+	//OKを探してクリックする
+		AFTER_OK(ok_1,close_btn)
+
+	//OKを探してクリックする
+		AFTER_OK(ok_1,close_btn)
+
+	//もう一度を探してクリックする。
+		AFTER_MORE(ok_2,close_btn,more)
+	//称号の確認画面
+		RC = PUSH_BUTTON(close_btn)
+		
+	//なんか出たとき用
+		IFB CHECK_BUTONN(charange) = 0
+			RC = PUSH_BUTTON(charange)
+		//フレンドを探してクリックする
+			RC = APandFRIEND(use,friend,ok_3,ok_4)
+		
+		//フレンド選択画面でエラーになった場合、高確率で認証が出ているので、
+		//メール連絡をして処理を強制終了
+			IFB RC = 99
+				ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
+
+				EXITEXIT
+			ENDIF
+		
+		//戦闘関係
+			RC = BATTLE_EX(full,ok_4,kyuen,c_kyuen)
+
+		//事後のOK
+			AFTER_OK(ok_1,close_btn)
+			AFTER_OK(ok_1,close_btn)
+			RC = PUSH_BUTTON(2top_ev)
+			sleep(2)
+			BTN(WHEEL, -2)
+			RC = PUSH_BUTTON(4sho_ex)
+			IFB RC = 99 
+				RC = PUSH_BUTTON(4sho_ex2)
+			ENDIF
+			RC = PUSH_BUTTON(4sho_trg)
+		ENDIF
+RESULT = RC
+FEND
+

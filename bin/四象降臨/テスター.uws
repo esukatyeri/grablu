@@ -9,6 +9,7 @@ OPTION LOGPATH= "C:\github\grablu\bin\ゼノイベント\実行ログ.txt"
 OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
 
 //ライブラリ呼び出し
+CALL BATTLE_EX.uws        			        //
 CALL BATTLE_EX_p.uws        			        //
 CALL ChkImgX.uws								//CHKIMGX関数を別ファイルから呼び出しておく。
 
@@ -64,8 +65,8 @@ startup_chkimgx() //CHKIMGX関数開始
 		dim ok_[]            = "ok",            p_ok,            200, 35, 150, 650, 500, 800,   1,    30,     1,   3,   1    //未使用
 		dim ok_1[]           = "ok",            p_ok1,           210, 35,   0, 850, 650, 950,   1,    30,     1,   3,   1    //
 		dim ok_2[]           = "ok",            p_ok2,           200, 30, 180, 650, 500, 800,   1,    30,     1,   2,   1    //
-		dim ok_3[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,   600,     1,   3,   1    //
-		dim ok_4[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,    10,     0,   1,   1    //
+		dim ok_3[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,     2,     1,   3,   1    //
+		dim ok_4[]           = "ok",            p_ok3,           203, 30, 150, 600, 500, 900,   1,     2,     0,   1,   1    //
 		dim ok_5[]           = "ok",            p_ok3,           203, 30, 300, 600, 600, 700,   1,    30,     1,   3,   1    //
 		dim ok_6[]           = "ok",            p_ok3,           203, 30, 300, 650, 600, 750,   1,    30,     1,   3,   1    //
 		dim ok_7[]           = "ok",            p_ok3,           203, 30, 300, 650, 600, 750,   1,     5,     0,   1,   1    //
@@ -164,111 +165,46 @@ startup_chkimgx() //CHKIMGX関数開始
 
 		dim zeno_quest[]     = "ゼノクエスト選択",     p_xeno_quest  ,   119, 30, 440, 680, 620, 730,   1,    15,     0,   1,   1    //エキストラバトルの難易度VH選択
 		dim zeno_lev_ex[]    = "EX難易度選択",         p_xeno_level  ,    52, 43, 500, 460, 580, 540,   1,    15,     0,   1,   1    //エキストラバトルの難易度EX選択
+	//==============================================================================
+	//四象降臨
+	//==============================================================================
+
+		p_4sho_ex            = image_path + "4sho_ex.BMP"
+		p_4sho_trg           = image_path + "4sho_trg.BMP"
+		p_4sho_cha           = image_path + "charange.BMP"
+		p_kyuen              = image_path + "kyuen.BMP"
+		p_c_kyuen            = image_path + "call_kyuen.BMP"
+
+
+		dim 4sho_ex[]        = "EX選択",               p_4sho_ex     ,   500,100,  30, 550, 210, 600,   1,    15,     0,   2,   1    //EXTREME難易度選択
+		dim 4sho_ex2[]       = "EX選択（予備）",       p_4sho_ex     ,   500,100,   0,   0, 650, 990,   1,    15,     0,   2,   1    //スクロール異常が発生した場合の定義
+
+		dim 4sho_trg[]       = "対象選択",             p_4sho_trg    ,   100, 80,  60, 650, 590, 720,   1,    15,     0,   2,   1    //ボーナスタイム中の属性を選択
+		dim 4sho_cha[]       = "HELLチャレンジ",       p_4sho_cha    ,   210, 35, 300, 750, 650, 900,   1,     5,     0,   2,   1    //HELL選択
+		dim kyuen[]          = "救援",                 p_kyuen       ,   219, 22,   0, 750, 300, 800, 1, 15, 0,  1,1
+		dim c_kyuen[]        = "救援依頼",             p_call_kyuen  ,   167, 35, 300, 700, 600, 800, 1, 15, 0,  1,1
 
 	//==============================================================================
 	//調整箇所（イベント、難易度毎に設定の変更が必要）
 	//==============================================================================
 	
-		//変数名			イベント名,		周回数記録ファイル,		難易度,		戦闘後の処理種別,更新ボタンまでのスリープ時間
-		dim base[]           = "アルケミスト", 		"イベント.ini",			"EX",			   2,	20
+		//変数名			イベント名,		周回数記録ファイル,		難易度,		戦闘後の処理種別,
+		dim base[]           = 	  "ロミオ", 		"イベント.ini",			"VH",			   1
 
-//ストーリーイベントのみ設定
-		dim stry_lev 		 = 	SLICE(stry_lev_ex)    //使用する難易度の配列を入れる
+		dim stry_lev 		 = 	SLICE(stry_lev_vh)    //使用する難易度の配列を入れる
+
+		//オプション設定
+		OPTION LOGPATH= "C:\github\grablu\log\base[0].txt"
+		OPTION LOGFILE= 3 //1:出力しない、2:日付を付けない、3:秒も付ける、4:以前のログは消去
 
 
 
+//======================================================================================
+//変数設定完了 
+//======================================================================================
 
-//=================================================
-//main
-//=================================================
-	PRINT "<#CR><#CR><#CR>"
-	PRINT base[0] + " 難易度" + base[2] + " 実行開始"
-	COUNTER = READ_INI(base[0],base[2], base[1])
+COUNT = 0
 	ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
-
-//=======================================================================================================================↓↓↓
-	REPEAT	//escを押すか、エラーが発生するまでループ
-
-	//=================================================
-	//戦闘前の処理
-	//=================================================
-	//開始時間の記録
-		s_time[0] = s_time[1]
-		s_time[1] = GETTIME()
-
-	//APが不足していないかのチェック
-	//フレンドを探してクリックする
-		RC = APandFRIEND(use,friend,ok_1,ok_2)
-		
-	//フレンド選択画面でエラーになった場合、高確率で認証が出ているので、
-	//メール連絡をして処理を強制終了
-		IFB RC = 99
-			ERROR_Pattern1("認証の可能性有","フレンド選択でエラー発生")
-			WRITEINI(base[0],base[2],COUNTER, base[1])
-			EXITEXIT
-		ENDIF
-
-	//=================================================
-	//戦闘の処理
-	//=================================================
-
-	//auto(FULL)の確認を探してクリックする
-		RC = BATTLE_EX_pls(full,reload_btn,attack,base[4],ok_4)
-		WRITEINI(base[0],base[2],COUNTER, base[1])
-
-		IFB RC = 0
-			PRINT "SLEEP時間に移行"
-
-	//前回の周回時間を記録
-			time = e_time - s_time[0]
-			Fid = FOPEN(time_file,F_READ or F_WRITE) 
-			FPUT(Fid,base[2] + "<#TAB>"+ COUNTER + "<#TAB>"+ time,0,1) 
-			FCLOSE(Fid,TRUE) 
-
-			ERROR_Pattern6("周回数の報告",COUNTER + " 周しています。")
-			COUNTER = COUNTER + 1
-			PRINT ""
-			PRINT "============================"
-			PRINT COUNTER + "週目の処理です"
-			PRINT "============================"
-			PRINT ""
-			WRITEINI(base[0],base[2],COUNTER, base[1])
-
-//			WHILE CHECK_BUTONN(ok_4) <> 0
-//				SLEEP(1)
-//			WEND
-//			SLEEP(0.3)
-		ENDIF		
-
-
-	//=================================================
-	//戦闘後の処理
-	//=================================================
-
-		SELECT base[3]
-			case 1
-				AFTER_PTN1(ok_3,ok_4,more,close_btn)
-				
-			case 2
-				AFTER_PTN21(ok_3,ok_4,more,close_btn,reward,2top_ev,stry_multi,stry_lev,base)
-
-			case 3
-				AFTER_PTN3(ok_3,ok_4,more,close_btn,reward,2top_ev,zeno_quest,stry_lev)
-
-			
-			DEFAULT
-				PRINT "設定値がありません"
-				PRINT "設定値=" + base[3]
-
-		SELEND
-
-
-		e_time = GETTIME()
-
-
-until GetKeyState(VK_ESC)　//エスケープキーが押されていたら終了
-//=======================================================================================================================↑↑↑
-
-PRINT "実行完了"
-WRITEINI(base[0],base[2],COUNTER, base[1])
-
+//main
+MMV(100,100)
+AFTER_PTN6(use,friend,ok_3,ok_4,ok_1,ok_2,more,close_btn,4sho_cha,2top_ev,4sho_ex,4sho_ex2,4sho_trg,kyuen,c_kyuen,full)

@@ -1,4 +1,4 @@
-FUNCTION BATTLE_EX_pls(FULL[],RELOAD[],ATTACK[],SLEEP_TIME,ok_4[])
+FUNCTION BATTLE_EX(FULL[],ok_4[],kyuen[],c_kyuen[])
 
 //êÌì¨âÊñ ópÇÃä÷êî
 //à¯êîÇÃê‡ñæ
@@ -7,6 +7,16 @@ FUNCTION BATTLE_EX_pls(FULL[],RELOAD[],ATTACK[],SLEEP_TIME,ok_4[])
 
 
 //ã~âáÇÃèàóùÅiñ¢é¿ëïÅj
+
+			//ã~âáÇåƒÇ‘
+			RC = 99
+			WHILE RC=99
+				BTN(WHEEL, -10)
+				RC = PUSH_BUTTON(kyuen)
+				RC = PUSH_BUTTON(c_kyuen)
+				RC = PUSH_BUTTON(ok_4)
+				BTN(WHEEL, 10)
+			WEND
 
 
 
@@ -36,16 +46,9 @@ FUNCTION BATTLE_EX_pls(FULL[],RELOAD[],ATTACK[],SLEEP_TIME,ok_4[])
 		COUNT = COUNT + 1
 	WEND
 
-	SLEEP(SLEEP_TIME)
-	RC = PUSH_BUTTON(ATTACK)
-	SLEEP(1)
-	RC = PUSH_BUTTON(RELOAD)
 	
 	WHILE CHECK_BUTONN(ok_4) <> 0
 		SLEEP(1)
-		RC = PUSH_BUTTON(ATTACK)
-		SLEEP(1)
-		RC = PUSH_BUTTON(RELOAD)
 	WEND
 	
 	RESULT = RC

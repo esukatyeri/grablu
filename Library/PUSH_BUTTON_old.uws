@@ -39,13 +39,15 @@ FUNCTION PUSH_BUTTON(DATA[])
 		x= G_IMGX_X + RANDOM(DATA[2])
 		y= G_IMGX_Y + RANDOM(DATA[3])		
 
-	//クリック
+	//どこをクリックするかログに出力してからクリック
+//		PRINT "基点:x="+ G_IMGX_X +",y="+ G_IMGX_Y
+//		PRINT "x="+ x  +",y="+ y
 		BTN(LEFT,CLICK,x,y)
 		shutdown_chkimgx()
-
+		
 	//画面が遷移するのを待つ
 		IFB DATA[12] = 1
-			SLEEP(0.3)
+			SLEEP(1)
 			startup_chkimgx()
 			WHILE (CHKIMGX(DATA[1],0,DATA[4],DATA[5],DATA[6],DATA[7],DATA[8],5,-1)=TRUE)
 				SLEEP(0.5)
@@ -70,8 +72,9 @@ FUNCTION PUSH_BUTTON(DATA[])
 		PRINT DATA[0] +"ボタンの処理完了"
 
 	//sleep処理		
-		s_time = 0.5 + DATA[10]/10 + RANDOM(DATA[11]*10)/100
+		s_time = DATA[10] + RANDOM((DATA[11]-DATA[10])*10)/10
 		SLEEP(s_time)
+		SLEEP(0.5)
 		RESULT = 0
 		
 		shutdown_chkimgx()

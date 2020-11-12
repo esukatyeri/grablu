@@ -7,7 +7,7 @@ FUNCTION FRIENDandAP(USE[],FRIEND[],OK1[],OK2[])
 
 	//フレンド石を選択する
 
-		RC = BUTTON(FRIEND)
+		RC = PUSH_BUTTON(FRIEND)
 
 
 			startup_chkimgx()
@@ -20,7 +20,7 @@ FUNCTION FRIENDandAP(USE[],FRIEND[],OK1[],OK2[])
 			//OKボタンが出ていたら関数終了
 				IFB (CHKIMGX(OK1[1],0,OK1[4],OK1[5],OK1[6],OK1[7],OK1[8],10,-1)=TRUE)
 					shutdown_chkimgx()
-					RC = BUTTON(OK1)
+					RC = PUSH_BUTTON(OK1)
 					RESULT = RC
 					exit
 				ENDIF
@@ -39,9 +39,9 @@ FUNCTION FRIENDandAP(USE[],FRIEND[],OK1[],OK2[])
 			shutdown_chkimgx()
 			COUNT = COUNT + 1
 		
-		RC = BUTTON(USE)
-		RC = BUTTON(OK2)
-		RC = BUTTON(OK1)
+		RC = PUSH_BUTTON(USE)
+		RC = PUSH_BUTTON(OK2)
+		RC = PUSH_BUTTON(OK1)
 		RESULT = RC
 		shutdown_chkimgx()
 FEND
