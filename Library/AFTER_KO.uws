@@ -64,7 +64,7 @@ FUNCTION AFTER_MORE(ok_2[],close_btn[],more[])
 			BTN(LEFT,CLICK)
 
 		//一定回数ループしたら異常終了
-			IFB i = 5
+			IFB i = 3
 				ERROR_Pattern3("more","戦闘後のもう一度ボタンが見つかりません")
 				RESULT = 99
 				EXIT
