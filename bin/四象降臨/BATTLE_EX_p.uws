@@ -29,7 +29,7 @@ FUNCTION BATTLE_EX_pls(FULL[],RELOAD[],ATTACK[],SLEEP_TIME,ok_4[])
 	//3回失敗したときはスキップ
 		IFB COUNT = 3
 			ERROR_Pattern3("自動戦闘に失敗","FULLボタンが見つかりませんでした")
-			BREAK
+			EXIT
 		ENDIF
 //↑↑↑↑↑↑↑エラーハンドリング↑↑↑↑↑↑↑↑↑
 

@@ -75,6 +75,8 @@ startup_chkimgx() //CHKIMGX関数開始
 		path_one_more        = image_path + "one_more.BMP"
 		path_classup         = image_path + "classup.BMP"
 		path_close           = image_path + "close.BMP"
+		path_reload          = image_path + "reload.BMP"
+		
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             ="メッセージ",            path_image,    |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
 		dim friend[]         ="Friend選択",            path_friend ,    100,117,   0, 400, 600, 700,   1,    30,     0,   2,   0
@@ -83,6 +85,7 @@ startup_chkimgx() //CHKIMGX関数開始
 		dim more[]           ="もう一度",              path_one_more ,  199, 35,   0, 550, 650, 700,   1,    30,     0,   1,   1
 		dim classup[]        = "Classup",              path_classup,    120,200, 100, 650, 550, 750,   1,    15,     0,   1,   1
 		dim close_btn[]      = "close",                path_close,      120,200, 100, 650, 550, 750,   1,     5,     0,   1,   1
+		dim reload_btn[]     = "reload",               path_reload,      67, 38, 420, 990, 520,1050,   1,     5,     0,   1,   0
 
 
 	//==================================================================================
@@ -91,14 +94,14 @@ startup_chkimgx() //CHKIMGX関数開始
 		p_full               = image_path + "full_b.BMP"
 		p_kyuen              = image_path + "kyuen.BMP"
 		p_call_kyuen         = image_path + "call_kyuen.BMP"
-		p_attack             = image_path + ""
+		p_attack             = image_path + "attack.BMP"
 
 	  //                                                              |  size  |       range       | trg|  loop|    sleep  | check|
 	  //dim _btn             ="メッセージ",            p_image,       |  x1, y1|  x2,  y2,  x3,  y3| num|   cnt|   min, max|  flg |
-		dim full[]           ="full ボタン",           p_full,           93, 22,   0, 550, 150, 650,   1,    80,     1,  10,   1
+		dim full[]           ="full ボタン",           p_full,           93, 22,   0, 550, 150, 650,   1,    80,     0,   1,   1
 		dim kyuen_b[]        ="救援",                  p_kyuen,         219, 22,   0, 750, 300, 800,   1,    15,     0,   1,   1
 		dim call_kyuen[]     ="救援依頼",              p_call_kyuen,    167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
-		dim attack[]         ="攻撃ボタン",            p_attack,        167, 35, 300, 700, 600, 800,   1,    15,     0,   1,   1
+		dim attack[]         ="攻撃ボタン",            p_attack,        177, 60, 400, 500, 600, 585,   1,    80,     0,   1,   1
 
 
 //==================================================================================
@@ -170,8 +173,9 @@ startup_chkimgx() //CHKIMGX関数開始
 //======================================================================================
 
 COUNT = 0
-
+	ACW(GETID("グランブルーファンタジー[AndApp版]","Chrome_WidgetWin_1"),10,0,1406,1073,0)
 //main
 	PRINT base[0] + " 難易度" + base[2] + " 実行開始"
 
 			PRINT "SLEEP時間に移行"
+		RC = BATTLE_EX_pls(full,reload_btn,attack,base[3],ok_4)

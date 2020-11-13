@@ -230,6 +230,14 @@ startup_chkimgx() //CHKIMGX関数開始
 			FPUT(Fid,base[2] + "<#TAB>"+ COUNTER + "<#TAB>"+ time,0,1) 
 			FCLOSE(Fid,TRUE) 
 
+			ERROR_Pattern6("周回数の報告",COUNTER + " 周しています。")
+			COUNTER = COUNTER + 1
+			PRINT ""
+			PRINT "============================"
+			PRINT COUNTER + "週目の処理です"
+			PRINT "============================"
+			PRINT ""
+
 			WHILE CHECK_BUTONN(ok_4) <> 0
 				SLEEP(1)
 			WEND
@@ -258,13 +266,6 @@ startup_chkimgx() //CHKIMGX関数開始
 		SELEND
 
 
-		ERROR_Pattern3("周回数の報告",COUNTER + " 周しています。")
-		COUNTER = COUNTER + 1
-		PRINT ""
-		PRINT "============================"
-		PRINT COUNTER + "週目の処理です"
-		PRINT "============================"
-		PRINT ""
 		e_time = GETTIME()
 
 

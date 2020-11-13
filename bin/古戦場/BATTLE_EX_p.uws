@@ -1,13 +1,9 @@
-FUNCTION BATTLE_EX_pls(FULL[])
+FUNCTION BATTLE_EX_pls(FULL[],base[],time,time_file,COUNTER,RELOAD[],ATTACK[],ok_4[])
 
 //戦闘画面用の関数
 //引数の説明
 //FULL[]：AUTO（FULL）のボタンの設定値
 //STIME ：戦闘にかかる時間、SLEEPの時間
-
-
-//救援の処理（未実装）
-
 
 
 //AUTO（FULL）の処理
@@ -21,8 +17,7 @@ FUNCTION BATTLE_EX_pls(FULL[])
 			BREAK
 		ENDIF
 
-
-//↓↓↓↓↓↓↓エラーハンドリング↓↓↓↓↓↓↓↓↓
+//================エラーハンドリング================
 	//FULLボタンがなかった場合の処理
 		BEEP
 
@@ -31,11 +26,42 @@ FUNCTION BATTLE_EX_pls(FULL[])
 			ERROR_Pattern3("自動戦闘に失敗","FULLボタンが見つかりませんでした")
 			BREAK
 		ENDIF
-//↑↑↑↑↑↑↑エラーハンドリング↑↑↑↑↑↑↑↑↑
-
 		COUNT = COUNT + 1
+//================エラーハンドリング================
+
 	WEND
 
+//========戦闘記録の出力===============================================
+		WRITEINI(base[0],base[2],COUNTER, base[1])
+
+		IFB RC = 0
+			PRINT "SLEEP時間に移行"
+
+	//前回の周回時間を記録
+
+			Fid = FOPEN(time_file,F_READ or F_WRITE) 
+			FPUT(Fid,base[2] + "<#TAB>"+ COUNTER + "<#TAB>"+ time,0,1) 
+			FCLOSE(Fid,TRUE) 
+
+			ERROR_Pattern6("周回数の報告",COUNTER + " 周しています。")
+			COUNTER = COUNTER + 1
+
+		ENDIF	
+
+//========戦闘記録の出力===============================================
+
+	//
+	SLEEP(base[4])
+	RC = PUSH_BUTTON(ATTACK)
+	SLEEP(1)
+	RC = PUSH_BUTTON(RELOAD)
+	
+	WHILE CHECK_BUTONN(ok_4) <> 0
+		SLEEP(1)
+		RC = PUSH_BUTTON(ATTACK)
+		SLEEP(1)
+		RC = PUSH_BUTTON(RELOAD)
+	WEND
 	
 	RESULT = RC
 FEND

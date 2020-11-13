@@ -15,8 +15,8 @@ FUNCTION APandFRIEND(USE[],FRIEND[],OK1[],OK2[])
 				Checker = 1
 				BREAK
 			ENDIF
-		//3秒待ってもAP不足の画面が出てこなければブレイク
-			IFB COUNT > 30
+		//1.2秒待ってもAP不足の画面が出てこなければブレイク
+			IFB COUNT > 12
 				Checker = 1
 				BREAK
 			ENDIF
@@ -35,24 +35,35 @@ FUNCTION APandFRIEND(USE[],FRIEND[],OK1[],OK2[])
 		ENDIF
 
 	//フレンド石を選択する
-	COUNT=0
+		COUNT=0
+
+
+
 		WHILE TRUE
+		//フレンド石をクリック
 			RC = PUSH_BUTTON(FRIEND)
+
+		//OKボタンが出てくるか確認
 			startup_chkimgx()
 			IFB (CHKIMGX(OK1[1],0,OK1[4],OK1[5],OK1[6],OK1[7],OK1[8],10,-1)=TRUE)
 				shutdown_chkimgx()
+				
+			//OKボタンをクリック
 				RC = PUSH_BUTTON(OK1)
+				RESULT = RC
 				BREAK
 			ENDIF
+
+		//OKボタンが一定回数出なかった場合はRC=99で終了
 			IFB COUNT > 15
 				shutdown_chkimgx()
 				RESULT = 99
-				EXIT
+				BREAK
 			ENDIF
 			
 			shutdown_chkimgx()
 			COUNT = COUNT + 1
 		WEND
-		RESULT = RC
+
 		shutdown_chkimgx()
 FEND
