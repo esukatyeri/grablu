@@ -1,0 +1,41 @@
+FUNCTION BATTLE_EX_pls(FULL[])
+
+//戦闘画面用の関数
+//引数の説明
+//FULL[]：AUTO（FULL）のボタンの設定値
+//STIME ：戦闘にかかる時間、SLEEPの時間
+
+
+//救援の処理（未実装）
+
+
+
+//AUTO（FULL）の処理
+
+	COUNT = 0
+	RC = PUSH_BUTTON(FULL)
+	WHILE ( RC = 99 )		//正常終了するか、5回失敗したときのみ抜ける
+		
+		RC = PUSH_BUTTON(FULL)
+		IFB RC = 0
+			BREAK
+		ENDIF
+
+
+//↓↓↓↓↓↓↓エラーハンドリング↓↓↓↓↓↓↓↓↓
+	//FULLボタンがなかった場合の処理
+		BEEP
+
+	//3回失敗したときはスキップ
+		IFB COUNT = 3
+			ERROR_Pattern3("自動戦闘に失敗","FULLボタンが見つかりませんでした")
+			BREAK
+		ENDIF
+//↑↑↑↑↑↑↑エラーハンドリング↑↑↑↑↑↑↑↑↑
+
+		COUNT = COUNT + 1
+	WEND
+
+	
+	RESULT = RC
+FEND

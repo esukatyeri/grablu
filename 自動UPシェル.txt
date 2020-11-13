@@ -1,0 +1,12 @@
+
+echo "start"
+while true
+do
+./git_commit.sh
+
+sleep 300
+done
+
+
+
+
